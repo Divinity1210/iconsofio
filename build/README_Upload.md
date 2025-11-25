@@ -61,7 +61,7 @@ Troubleshooting `.msapp` build (Windows)
 - Re-run the script and check logs:
   - Logs are written to `build\pack-logs\<App>-validate.log` and `build\pack-logs\<App>-pack.log`
 - If pack still fails, try downgrading CLI:
-  - `dotnet tool update -g Microsoft.PowerApps.CLI --version 1.48.1`
+  - `dotnet tool update -g Microsoft.PowerApps.CLI.Tool --version 1.49.0`
 - Known issue: theme packing errors (e.g., `PA3001`). Workaround:
   - Temporarily rename `build\AdminDashboard_src\Themes.json` to `Themes.json.disabled` and pack.
   - After import, set the theme inside Power Apps Studio.

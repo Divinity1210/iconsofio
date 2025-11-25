@@ -30,7 +30,7 @@ jobs:
           try {
             $pacCmd = Get-Command pac -ErrorAction SilentlyContinue
             if ($null -eq $pacCmd) {
-              dotnet tool install -g Microsoft.PowerApps.CLI
+              dotnet tool install -g Microsoft.PowerApps.CLI.Tool
             }
           } catch {
             Write-Host "CLI install attempt finished (may already be present)." -ForegroundColor Yellow

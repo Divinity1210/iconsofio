@@ -13,7 +13,7 @@ This guide ensures you can import the Icons of IO applications without the "mani
 
 1. Install Power Platform CLI:
    - macOS: `brew tap microsoft/pac && brew install microsoft/pac/pac`
-   - Windows: `winget install Microsoft.PowerApps.CLI` (or download installer from `https://aka.ms/pac`)
+   - Windows: `winget install Microsoft.PowerAppsCLI` (or download installer from `https://aka.ms/pac`)
 2. Build msapps:
    - macOS/Linux: `Scripts/build-msapps.sh`
    - Windows: `Scripts\build-msapps.ps1`

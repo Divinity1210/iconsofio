@@ -13,7 +13,7 @@ This guide ensures you can import the Icons of IO applications without the "mani
 
 1. Install Power Platform CLI:
    - macOS: `brew tap microsoft/pac && brew install microsoft/pac/pac`
-   - Windows: `winget install Microsoft.PowerApps.CLI` (or download installer from `https://aka.ms/pac`)
+   - Windows: `winget install Microsoft.PowerAppsCLI` (or download installer from `https://aka.ms/pac`)
 2. Build msapps:
    - macOS/Linux: `Scripts/build-msapps.sh`
    - Windows: `Scripts\build-msapps.ps1`
@@ -31,7 +31,7 @@ This guide ensures you can import the Icons of IO applications without the "mani
    - If `pac` is not in PATH, these scripts auto‑fallback to the dotnet global tool:
      - macOS/Linux: `~/.dotnet/tools/pac`
      - Windows: `%USERPROFILE%\.dotnet\tools\pac.exe`
-   - Install via dotnet if needed: `dotnet tool install -g Microsoft.PowerApps.CLI`
+   - Install via dotnet if needed: `dotnet tool install -g Microsoft.PowerApps.CLI.Tool`
    - Optional PATH update (macOS/Linux): `export PATH="$HOME/.dotnet/tools:$PATH"`
    - Authenticate: `pac auth create --url https://make.powerapps.com`
 2. Run:

@@ -36,7 +36,7 @@ jobs:
         run: |
           try {
             $pacCmd = Get-Command pac -ErrorAction SilentlyContinue
-            if ($null -eq $pacCmd) { dotnet tool install -g Microsoft.PowerApps.CLI }
+            if ($null -eq $pacCmd) { dotnet tool install -g Microsoft.PowerApps.CLI.Tool }
           } catch {}
 
       - name: Build .msapp files
@@ -67,7 +67,7 @@ jobs:
         run: |
           try {
             $pacCmd = Get-Command pac -ErrorAction SilentlyContinue
-            if ($null -eq $pacCmd) { dotnet tool install -g Microsoft.PowerApps.CLI }
+            if ($null -eq $pacCmd) { dotnet tool install -g Microsoft.PowerApps.CLI.Tool }
           } catch {}
 
       - name: Authenticate to Dataverse (Service Principal)

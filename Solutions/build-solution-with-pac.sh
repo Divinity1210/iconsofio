@@ -25,7 +25,7 @@ if ! command -v "$PAC_BIN" >/dev/null 2>&1; then
   else
     echo "⚠️  Power Platform CLI (pac) not found in PATH or dotnet tools. Install with one of:"
     echo "   brew tap microsoft/pac && brew install microsoft/pac/pac"
-    echo "   dotnet tool install -g Microsoft.PowerApps.CLI"
+    echo "   dotnet tool install -g Microsoft.PowerApps.CLI.Tool"
     exit 1
   fi
 fi

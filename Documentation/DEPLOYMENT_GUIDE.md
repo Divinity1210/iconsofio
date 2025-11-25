@@ -20,7 +20,7 @@ This guide provides comprehensive instructions for deploying the Icons of IO Awa
 - PowerShell 5.1 or later (Windows)
 - PnP PowerShell module
 - Microsoft.PowerApps.Administration.PowerShell module
-- Power Platform CLI (`pac`) for packaging/import via solutions or `.msapp` (Windows: `winget install Microsoft.PowerApps.CLI`)
+- Power Platform CLI (`pac`) for packaging/import via solutions or `.msapp` (Windows: `winget install Microsoft.PowerAppsCLI`)
 
 ## Pre-Deployment Setup
 

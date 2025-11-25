@@ -3,7 +3,7 @@
   Builds and exports an unmanaged Power Platform solution containing all Icons of IO canvas apps (Windows).
 
 .PREREQUISITES
-  - Power Platform CLI installed: winget install Microsoft.PowerApps.CLI (or https://aka.ms/pac)
+  - Power Platform CLI installed: winget install Microsoft.PowerAppsCLI (or https://aka.ms/pac)
 
 .USAGE
   PS> cd C:\Path\To\PowerApps-ICONS-JLR\Solutions
@@ -32,7 +32,7 @@ if ($pacCmd) {
     $PacPath = $fallback
     Write-Host "Using PAC from dotnet global tools: $PacPath" -ForegroundColor DarkCyan
   } else {
-    Write-Error "Power Platform CLI 'pac' not found. Install via 'winget install Microsoft.PowerApps.CLI' or from https://aka.ms/pac, or install dotnet tool: 'dotnet tool install -g Microsoft.PowerApps.CLI'"
+    Write-Error "Power Platform CLI 'pac' not found. Install via 'winget install Microsoft.PowerAppsCLI' or from https://aka.ms/pac, or install dotnet tool: 'dotnet tool install -g Microsoft.PowerApps.CLI.Tool'"
   }
 }
 

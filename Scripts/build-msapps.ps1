@@ -9,7 +9,7 @@
 .PREREQUISITES
   - Windows 10/11 with PowerShell 5.1+
   - Power Platform CLI installed:
-      winget install Microsoft.PowerApps.CLI
+      winget install Microsoft.PowerAppsCLI
     or download from https://aka.ms/pac
 
 .USAGE
@@ -40,31 +40,18 @@ if ($pacCmd) {
 } else {
   $dotnetPac = Join-Path $env:USERPROFILE '.dotnet\tools\pac.exe'
   if (-not (Test-Path $dotnetPac)) {
-    Write-Host "Installing PAC via dotnet tool (v1.49.0)..." -ForegroundColor Yellow
-    try { dotnet tool install -g Microsoft.PowerApps.CLI --version 1.49.0 | Out-Null } catch { }
+    Write-Host "Installing PAC via dotnet tool (v1.50.1)..." -ForegroundColor Yellow
+    try { dotnet tool install -g Microsoft.PowerApps.CLI.Tool --version 1.50.1 | Out-Null } catch { }
   }
   if (-not (Test-Path $dotnetPac)) {
-    Write-Host "Attempting PAC install via dotnet tool (fallback v1.48.1)..." -ForegroundColor Yellow
-    try { dotnet tool install -g Microsoft.PowerApps.CLI --version 1.48.1 | Out-Null } catch { }
+    Write-Host "Attempting PAC install via dotnet tool (fallback v1.49.0)..." -ForegroundColor Yellow
+    try { dotnet tool install -g Microsoft.PowerApps.CLI.Tool --version 1.49.0 | Out-Null } catch { }
   }
   if (Test-Path $dotnetPac) {
     $PacPath = $dotnetPac
     Write-Host "Using PAC from dotnet tools: $PacPath" -ForegroundColor DarkCyan
   } else {
-    # Try winget as a secondary installation path on Windows runners
-    Write-Host "Attempting PAC install via winget..." -ForegroundColor Yellow
-    try {
-      winget install --id Microsoft.PowerApps.CLI -e --accept-package-agreements --accept-source-agreements --silent | Out-Null
-    } catch {
-      Write-Host "winget installation attempt failed: $($_.Exception.Message)" -ForegroundColor DarkYellow
-    }
-    $pacCmd2 = Get-Command pac -ErrorAction SilentlyContinue
-    if ($pacCmd2) {
-      $PacPath = $pacCmd2.Source
-      Write-Host "Using PAC from winget: $PacPath" -ForegroundColor DarkCyan
-    } else {
-      Write-Error "Power Platform CLI 'pac' not found. Install via winget or dotnet tool: https://aka.ms/pac"
-    }
+    Write-Error "Power Platform CLI 'pac' not found. Install via winget or dotnet tool: https://aka.ms/pac"
   }
 }
 
