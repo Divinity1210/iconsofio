@@ -1,0 +1,10 @@
+AdminHome:
+  Control: Screen
+  Children:
+    - HeaderLabel:
+        Control: Label
+        Properties:
+          Text: ="Icons of IO — Admin Dashboard"
+          X: =20
+          Y: =20
+          ZIndex: =1

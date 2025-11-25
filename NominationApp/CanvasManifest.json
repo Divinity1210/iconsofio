@@ -1,0 +1,61 @@
+{
+  "AppDefinition": {
+    "AppDescription": "Nomination form with dynamic fields and validation",
+    "AppDisplayName": "Icons of IO - Nomination Form",
+    "AppPreviewFlagsMap": {},
+    "Author": "Icons of IO Development Team",
+    "BackgroundColor": "RGBA(255, 255, 255, 1)",
+    "DocumentLayoutHeight": 1080,
+    "DocumentLayoutLockOrientation": false,
+    "DocumentLayoutMaintainAspectRatio": false,
+    "DocumentLayoutOrientation": "landscape",
+    "DocumentLayoutScaleToFit": true,
+    "DocumentLayoutWidth": 1920,
+    "EnableInstrumentation": false,
+    "FileID": "00000000-0000-0000-0000-000000000001",
+    "Id": "00000000-0000-0000-0000-000000000001",
+    "InstrumentationKey": "",
+    "LocalConnectionReferences": {
+      "SharePointConnection": {
+        "connectionRef": "shared_sharepointonline",
+        "displayName": "SharePoint",
+        "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1549/1.0.1549.2680/sharepointonline/icon.png"
+      }
+    },
+    "LocalDatabaseReferences": {},
+    "Name": "IconsOfIO_NominationApp",
+    "OriginatingVersion": "1.337",
+    "ParserErrorCount": 0,
+    "PublishSource": "Unknown",
+    "PublishTimestamp": "2024-01-15T10:00:00.000Z",
+    "ScreenHeight": 1080,
+    "ScreenWidth": 1920,
+    "TestSteps": "",
+    "Version": "2024-01-15T10:00:00.000Z"
+  },
+  "Header": {
+    "DocVersion": "1.337",
+    "MinVersionToLoad": "1.331"
+  },
+  "PublishInfo": {
+    "AppName": "Icons of IO - Nomination Form",
+    "BackgroundColor": "RGBA(255, 255, 255, 1)",
+    "IconColor": "RGBA(98, 100, 167, 1)",
+    "IconName": "Edit",
+    "LogoFileName": "",
+    "PublishDataLocally": false,
+    "UserLocale": "en-US"
+  },
+  "ScreenOrder": [
+    "WelcomeScreen",
+    "CategoryScreen",
+    "NomineeTypeScreen",
+    "NomineeDetailsScreen",
+    "NominatorDetailsScreen",
+    "NominationDetailsScreen",
+    "DynamicFieldsScreen",
+    "AttachmentsScreen",
+    "ReviewScreen",
+    "ConfirmationScreen"
+  ]
+}

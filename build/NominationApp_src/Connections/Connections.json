@@ -1,0 +1,47 @@
+{
+  "a7c40043-4506-49b1-8bd8-ac0ca97c5d03": {
+    "appActions": [
+      "providers/PowerPlatform.Governance/Operations/Read",
+      "providers/PowerPlatform.Governance/Operations/Write"
+    ],
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "SharePoint",
+      "iconUri": "https://conn-afd-prod-endpoint-bmc9bqahasf3grgk.b01.azurefd.net/releases/v1.0.1738/1.0.1738.4131/sharepointonline/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_sharepointonline",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {
+      "https://jlrglobal-my.sharepoint.com/personal/fadekany_jaguarlandrover_com": {
+        "dataSources": {
+          "Function_Roles": {
+            "tableName": "b0dedeed-1654-46cf-8b6f-46c625f3e5c6"
+          },
+          "GPL Cost": {
+            "tableName": "1457dc35-e1d3-4c5d-9381-a8adf8759208"
+          },
+          "MDI Study Matrix": {
+            "tableName": "ca1db8ed-8537-457e-889b-f77545525850"
+          }
+        }
+      },
+      "https://jlrglobal.sharepoint.com/sites/StrategyDeployment_GRP": {
+        "dataSources": {
+          "GPLs Cost": {
+            "tableName": "b00b0dea-41d1-4ace-ba31-8b533a102111"
+          }
+        }
+      }
+    },
+    "dataSources": [
+      "MDI Study Matrix",
+      "GPL Cost",
+      "Function_Roles",
+      "GPLs Cost"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "a7c40043-4506-49b1-8bd8-ac0ca97c5d03"
+  }
+}

@@ -1,0 +1,453 @@
+{
+  "name": "IconsOfIO_AdminDashboard",
+  "displayName": "Icons of IO Awards - Admin Dashboard",
+  "description": "Administrative dashboard for managing nominations, scoring, and reviewer assignments",
+  "version": "1.0.0.0",
+  "screens": [
+    {
+      "name": "MainDashboard",
+      "displayName": "Dashboard Overview",
+      "type": "dashboard",
+      "controls": [
+        {
+          "type": "Label",
+          "name": "lblDashboardTitle",
+          "text": "Icons of IO Awards - Admin Dashboard",
+          "fontSize": 28,
+          "fontWeight": "Bold",
+          "color": "#1f4e79"
+        },
+        {
+          "type": "Rectangle",
+          "name": "rectStatsContainer",
+          "fill": "#f8f9fa",
+          "borderColor": "#dee2e6",
+          "borderThickness": 1
+        },
+        {
+          "type": "Label",
+          "name": "lblTotalNominations",
+          "text": "Total Nominations: [Dynamic Count]",
+          "fontSize": 18,
+          "fontWeight": "Semibold",
+          "color": "#0078d4"
+        },
+        {
+          "type": "Label",
+          "name": "lblPendingReview",
+          "text": "Pending Review: [Dynamic Count]",
+          "fontSize": 16,
+          "color": "#d13438"
+        },
+        {
+          "type": "Label",
+          "name": "lblScored",
+          "text": "Scored: [Dynamic Count]",
+          "fontSize": 16,
+          "color": "#107c10"
+        },
+        {
+          "type": "Label",
+          "name": "lblShortlisted",
+          "text": "Shortlisted: [Dynamic Count]",
+          "fontSize": 16,
+          "color": "#8764b8"
+        },
+        {
+          "type": "Button",
+          "name": "btnViewNominations",
+          "text": "View All Nominations",
+          "onSelect": "Navigate to Nominations Screen",
+          "backgroundColor": "#0078d4",
+          "color": "White"
+        },
+        {
+          "type": "Button",
+          "name": "btnManageReviewers",
+          "text": "Manage Reviewers",
+          "onSelect": "Navigate to Reviewers Screen",
+          "backgroundColor": "#8764b8",
+          "color": "White"
+        },
+        {
+          "type": "Button",
+          "name": "btnBulkActions",
+          "text": "Bulk Actions",
+          "onSelect": "Navigate to Bulk Actions Screen",
+          "backgroundColor": "#ca5010",
+          "color": "White"
+        }
+      ]
+    },
+    {
+      "name": "NominationsScreen",
+      "displayName": "Nominations Management",
+      "type": "gallery",
+      "dataSource": "IconsOfIO_Nominations",
+      "controls": [
+        {
+          "type": "Label",
+          "name": "lblNominationsTitle",
+          "text": "Nominations Management",
+          "fontSize": 24,
+          "fontWeight": "Bold"
+        },
+        {
+          "type": "SearchBox",
+          "name": "txtSearch",
+          "hintText": "Search nominations by title, nominee, or nominator...",
+          "onTextChanged": "Set search filter"
+        },
+        {
+          "type": "Dropdown",
+          "name": "ddFilterCategory",
+          "displayName": "Filter by Category",
+          "items": "Categories from data source",
+          "includeSelectAll": true,
+          "onSelectionChange": "Set category filter"
+        },
+        {
+          "type": "Dropdown",
+          "name": "ddFilterStatus",
+          "displayName": "Filter by Status",
+          "items": ["All", "Submitted", "Under Review", "Scored", "Shortlisted", "Final Review", "Selected", "Not Selected"],
+          "default": "All",
+          "onSelectionChange": "Set status filter"
+        },
+        {
+          "type": "Dropdown",
+          "name": "ddSortBy",
+          "displayName": "Sort by",
+          "items": ["Submission Date", "Score (High to Low)", "Score (Low to High)", "Category", "Status"],
+          "default": "Submission Date",
+          "onSelectionChange": "Set sort order"
+        },
+        {
+          "type": "Gallery",
+          "name": "galNominations",
+          "items": "Filtered and sorted nominations",
+          "templateSize": 120,
+          "template": {
+            "controls": [
+              {
+                "type": "Rectangle",
+                "name": "rectNominationCard",
+                "fill": "White",
+                "borderColor": "#e1e5e9",
+                "borderThickness": 1
+              },
+              {
+                "type": "Label",
+                "name": "lblNominationTitle",
+                "text": "[Nomination Title]",
+                "fontSize": 16,
+                "fontWeight": "Semibold",
+                "color": "#323130"
+              },
+              {
+                "type": "Label",
+                "name": "lblNomineeInfo",
+                "text": "[Nominee Name and Category]",
+                "fontSize": 14,
+                "color": "#605e5c"
+              },
+              {
+                "type": "Label",
+                "name": "lblSubmissionDate",
+                "text": "Submitted: [Date]",
+                "fontSize": 12,
+                "color": "#8a8886"
+              },
+              {
+                "type": "Label",
+                "name": "lblStatus",
+                "text": "[Status]",
+                "fontSize": 12,
+                "fontWeight": "Semibold",
+                "color": "[Dynamic based on status]"
+              },
+              {
+                "type": "Label",
+                "name": "lblScore",
+                "text": "[Score or Not Scored]",
+                "fontSize": 12,
+                "fontWeight": "Semibold",
+                "color": "[Dynamic based on score]"
+              },
+              {
+                "type": "Button",
+                "name": "btnViewDetails",
+                "text": "View Details",
+                "onSelect": "Navigate to details screen",
+                "backgroundColor": "#0078d4",
+                "color": "White",
+                "size": "Small"
+              },
+              {
+                "type": "Button",
+                "name": "btnQuickScore",
+                "text": "Score",
+                "onSelect": "Open scoring dialog",
+                "backgroundColor": "#107c10",
+                "color": "White",
+                "size": "Small"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "NominationDetailsScreen",
+      "displayName": "Nomination Details",
+      "type": "form",
+      "dataSource": "selectedNomination",
+      "controls": [
+        {
+          "type": "Label",
+          "name": "lblDetailsTitle",
+          "text": "Nomination Details",
+          "fontSize": 24,
+          "fontWeight": "Bold"
+        },
+        {
+          "type": "DisplayForm",
+          "name": "frmNominationDetails",
+          "item": "selectedNomination",
+          "fields": [
+            "Title",
+            "Category",
+            "NomineeName",
+            "NomineeEmail",
+            "NomineeDepartment",
+            "NominatorName",
+            "NominatorEmail",
+            "NominationReason",
+            "Achievements",
+            "SupportingEvidence",
+            "SubmissionDate",
+            "Status"
+          ]
+        },
+        {
+          "type": "Label",
+          "name": "lblScoringSection",
+          "text": "Scoring & Review",
+          "fontSize": 18,
+          "fontWeight": "Semibold"
+        },
+        {
+          "type": "Slider",
+          "name": "sliderScore",
+          "displayName": "Initial Score (1-5)",
+          "min": 1,
+          "max": 5,
+          "step": 0.1,
+          "default": "Current score or 3",
+          "showValue": true
+        },
+        {
+          "type": "TextInput",
+          "name": "txtAdminComments",
+          "displayName": "Admin Comments",
+          "mode": "Multiline",
+          "default": "Current admin comments",
+          "height": 100
+        },
+        {
+          "type": "Dropdown",
+          "name": "ddAssignReviewer",
+          "displayName": "Assign Reviewer",
+          "items": "Available reviewers",
+          "displayFields": ["Title"],
+          "searchFields": ["Title", "Department"],
+          "default": "Current assigned reviewer"
+        },
+        {
+          "type": "Dropdown",
+          "name": "ddUpdateStatus",
+          "displayName": "Update Status",
+          "items": ["Submitted", "Under Review", "Scored", "Shortlisted", "Final Review", "Selected", "Not Selected", "Withdrawn"],
+          "default": "Current status"
+        },
+        {
+          "type": "Toggle",
+          "name": "tglShortlisted",
+          "displayName": "Add to Shortlist",
+          "default": "Current shortlist status"
+        },
+        {
+          "type": "Button",
+          "name": "btnSaveChanges",
+          "text": "Save Changes",
+          "onSelect": "Save all changes to nomination",
+          "backgroundColor": "#107c10",
+          "color": "White"
+        },
+        {
+          "type": "Button",
+          "name": "btnBack",
+          "text": "Back to List",
+          "onSelect": "Navigate back",
+          "backgroundColor": "Transparent",
+          "color": "#0078d4"
+        }
+      ]
+    },
+    {
+      "name": "ReviewersScreen",
+      "displayName": "Reviewer Management",
+      "type": "gallery",
+      "dataSource": "IconsOfIO_Reviewers",
+      "controls": [
+        {
+          "type": "Label",
+          "name": "lblReviewersTitle",
+          "text": "Reviewer Management",
+          "fontSize": 24,
+          "fontWeight": "Bold"
+        },
+        {
+          "type": "Button",
+          "name": "btnAddReviewer",
+          "text": "+ Add New Reviewer",
+          "onSelect": "Show add reviewer form",
+          "backgroundColor": "#107c10",
+          "color": "White"
+        },
+        {
+          "type": "Gallery",
+          "name": "galReviewers",
+          "items": "IconsOfIO_Reviewers",
+          "templateSize": 100,
+          "template": {
+            "controls": [
+              {
+                "type": "Rectangle",
+                "name": "rectReviewerCard",
+                "fill": "White",
+                "borderColor": "#e1e5e9",
+                "borderThickness": 1
+              },
+              {
+                "type": "Label",
+                "name": "lblReviewerName",
+                "text": "[Reviewer Name]",
+                "fontSize": 16,
+                "fontWeight": "Semibold"
+              },
+              {
+                "type": "Label",
+                "name": "lblReviewerInfo",
+                "text": "[Department - Role]",
+                "fontSize": 14,
+                "color": "#605e5c"
+              },
+              {
+                "type": "Label",
+                "name": "lblAssignmentLoad",
+                "text": "Assignments: [Current/Max]",
+                "fontSize": 12,
+                "color": "[Dynamic based on load]"
+              },
+              {
+                "type": "Icon",
+                "name": "icnActiveStatus",
+                "icon": "[Active/Inactive icon]",
+                "color": "[Dynamic based on status]"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "BulkActionsScreen",
+      "displayName": "Bulk Actions",
+      "type": "form",
+      "controls": [
+        {
+          "type": "Label",
+          "name": "lblBulkTitle",
+          "text": "Bulk Actions",
+          "fontSize": 24,
+          "fontWeight": "Bold"
+        },
+        {
+          "type": "Label",
+          "name": "lblBulkDescription",
+          "text": "Perform actions on multiple nominations at once. Use filters to select the nominations you want to update.",
+          "fontSize": 14,
+          "wrap": true
+        },
+        {
+          "type": "Dropdown",
+          "name": "ddBulkCategory",
+          "displayName": "Filter by Category",
+          "items": "Categories from nominations",
+          "includeSelectAll": true
+        },
+        {
+          "type": "Dropdown",
+          "name": "ddBulkStatus",
+          "displayName": "Filter by Current Status",
+          "items": ["Submitted", "Under Review", "Scored", "Shortlisted", "Final Review"]
+        },
+        {
+          "type": "Label",
+          "name": "lblSelectedCount",
+          "text": "Selected Nominations: [Dynamic Count]",
+          "fontSize": 14,
+          "fontWeight": "Semibold"
+        },
+        {
+          "type": "Dropdown",
+          "name": "ddBulkAction",
+          "displayName": "Select Action",
+          "items": ["Update Status", "Assign Reviewer", "Add to Shortlist", "Remove from Shortlist", "Set Minimum Score Filter"]
+        },
+        {
+          "type": "Dropdown",
+          "name": "ddBulkNewStatus",
+          "displayName": "New Status",
+          "items": ["Under Review", "Scored", "Shortlisted", "Final Review", "Not Selected"],
+          "visible": "Show when Update Status is selected"
+        },
+        {
+          "type": "Dropdown",
+          "name": "ddBulkReviewer",
+          "displayName": "Assign to Reviewer",
+          "items": "Active reviewers",
+          "displayFields": ["Title"],
+          "visible": "Show when Assign Reviewer is selected"
+        },
+        {
+          "type": "Slider",
+          "name": "sliderMinScore",
+          "displayName": "Minimum Score Threshold",
+          "min": 1,
+          "max": 5,
+          "step": 0.1,
+          "default": 3.5,
+          "showValue": true,
+          "visible": "Show when Set Minimum Score Filter is selected"
+        },
+        {
+          "type": "Button",
+          "name": "btnExecuteBulkAction",
+          "text": "Execute Bulk Action",
+          "onSelect": "Execute selected bulk action",
+          "backgroundColor": "#d13438",
+          "color": "White"
+        }
+      ]
+    }
+  ],
+  "formulas": {
+    "OnStart": "Initialize variables and filters"
+  },
+  "validation": {
+    "adminRole": "Check if user has admin permissions",
+    "minimumScoreThreshold": 3.0
+  }
+}

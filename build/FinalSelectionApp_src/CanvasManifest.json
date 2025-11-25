@@ -1,0 +1,39 @@
+{
+  "FormatVersion": "0.24",
+  "Properties": {
+    "AppDisplayName": "Icons of IO - Final Selection",
+    "AppPreviewFlagsMap": {
+      "showclassicthemes": false
+    },
+    "Author": "Icons of IO Awards Team",
+    "BackgroundColor": "RGBA(248, 249, 250, 1)",
+    "DocumentLayoutHeight": 1080,
+    "DocumentLayoutLockOrientation": false,
+    "DocumentLayoutMaintainAspectRatio": false,
+    "DocumentLayoutOrientation": "landscape",
+    "DocumentLayoutScaleToFit": true,
+    "DocumentLayoutWidth": 1920,
+    "EnableInstrumentation": false,
+    "FileID": "00000000-0000-0000-0000-000000000004",
+    "Id": "00000000-0000-0000-0000-000000000004",
+    "LocalDatabaseReferences": "",
+    "Name": "Icons of IO - Final Selection",
+    "OriginatingVersion": "1.337",
+    "ParserErrorCount": 0,
+    "ShowStatusBar": false
+  },
+  "PublishInfo": {
+    "AppName": "Icons of IO - Final Selection",
+    "BackgroundColor": "RGBA(248, 249, 250, 1)",
+    "IconColor": "RGBA(255, 255, 255, 1)",
+    "IconName": "Trophy",
+    "LogoFileName": "",
+    "PublishDataLocally": false,
+    "PublishResourcesLocally": false,
+    "PublishTarget": "player",
+    "UserLocale": "en-US"
+  },
+  "ScreenOrder": [
+    "FinalSelectionHome"
+  ]
+}

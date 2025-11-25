@@ -1,0 +1,604 @@
+{
+  "name": "IconsOfIO_ReviewerInterface",
+  "displayName": "Icons of IO Awards - Reviewer Interface",
+  "description": "Interface for reviewers to evaluate assigned nominations and provide scores and feedback",
+  "version": "1.0.0.0",
+  "screens": [
+    {
+      "name": "ReviewerDashboard",
+      "displayName": "Reviewer Dashboard",
+      "type": "dashboard",
+      "controls": [
+        {
+          "type": "Label",
+          "name": "lblWelcome",
+          "text": "Welcome, [Reviewer Name]",
+          "fontSize": 24,
+          "fontWeight": "Bold",
+          "color": "#1f4e79"
+        },
+        {
+          "type": "Label",
+          "name": "lblDashboardTitle",
+          "text": "Icons of IO Awards - Reviewer Dashboard",
+          "fontSize": 20,
+          "fontWeight": "Semibold",
+          "color": "#323130"
+        },
+        {
+          "type": "Rectangle",
+          "name": "rectStatsContainer",
+          "fill": "#f8f9fa",
+          "borderColor": "#dee2e6",
+          "borderThickness": 1
+        },
+        {
+          "type": "Label",
+          "name": "lblAssignedCount",
+          "text": "Assigned to Review: [Dynamic Count]",
+          "fontSize": 16,
+          "fontWeight": "Semibold",
+          "color": "#0078d4"
+        },
+        {
+          "type": "Label",
+          "name": "lblCompletedCount",
+          "text": "Completed Reviews: [Dynamic Count]",
+          "fontSize": 14,
+          "color": "#107c10"
+        },
+        {
+          "type": "Label",
+          "name": "lblPendingCount",
+          "text": "Pending Reviews: [Dynamic Count]",
+          "fontSize": 14,
+          "color": "#d13438"
+        },
+        {
+          "type": "Label",
+          "name": "lblAverageScore",
+          "text": "Your Average Score: [Dynamic Average]",
+          "fontSize": 14,
+          "color": "#8764b8"
+        },
+        {
+          "type": "Button",
+          "name": "btnViewAssigned",
+          "text": "View Assigned Nominations",
+          "onSelect": "Navigate to assigned nominations",
+          "backgroundColor": "#0078d4",
+          "color": "White"
+        },
+        {
+          "type": "Button",
+          "name": "btnMyReviews",
+          "text": "My Completed Reviews",
+          "onSelect": "Navigate to completed reviews",
+          "backgroundColor": "#107c10",
+          "color": "White"
+        }
+      ]
+    },
+    {
+      "name": "AssignedNominationsScreen",
+      "displayName": "Assigned Nominations",
+      "type": "gallery",
+      "dataSource": "AssignedNominations",
+      "controls": [
+        {
+          "type": "Label",
+          "name": "lblAssignedTitle",
+          "text": "Your Assigned Nominations",
+          "fontSize": 22,
+          "fontWeight": "Bold"
+        },
+        {
+          "type": "SearchBox",
+          "name": "txtSearchAssigned",
+          "hintText": "Search by nominee name, category, or title...",
+          "onTextChanged": "Set search filter"
+        },
+        {
+          "type": "Dropdown",
+          "name": "ddFilterReviewStatus",
+          "displayName": "Filter by Review Status",
+          "items": ["All", "Not Started", "In Progress", "Completed"],
+          "default": "All",
+          "onSelectionChange": "Set review status filter"
+        },
+        {
+          "type": "Dropdown",
+          "name": "ddFilterCategory",
+          "displayName": "Filter by Category",
+          "items": "Categories from assigned nominations",
+          "includeSelectAll": true,
+          "onSelectionChange": "Set category filter"
+        },
+        {
+          "type": "Dropdown",
+          "name": "ddSortAssigned",
+          "displayName": "Sort by",
+          "items": ["Assignment Date", "Submission Date", "Category", "Review Status", "Priority"],
+          "default": "Assignment Date",
+          "onSelectionChange": "Set sort order"
+        },
+        {
+          "type": "Gallery",
+          "name": "galAssignedNominations",
+          "items": "Filtered and sorted assigned nominations",
+          "templateSize": 140,
+          "template": {
+            "controls": [
+              {
+                "type": "Rectangle",
+                "name": "rectNominationCard",
+                "fill": "White",
+                "borderColor": "#e1e5e9",
+                "borderThickness": 1
+              },
+              {
+                "type": "Label",
+                "name": "lblNominationTitle",
+                "text": "[Nomination Title]",
+                "fontSize": 16,
+                "fontWeight": "Semibold",
+                "color": "#323130"
+              },
+              {
+                "type": "Label",
+                "name": "lblNomineeInfo",
+                "text": "[Nominee Name and Category]",
+                "fontSize": 14,
+                "color": "#605e5c"
+              },
+              {
+                "type": "Label",
+                "name": "lblAssignmentDate",
+                "text": "Assigned: [Date]",
+                "fontSize": 12,
+                "color": "#8a8886"
+              },
+              {
+                "type": "Label",
+                "name": "lblReviewStatus",
+                "text": "[Review Status]",
+                "fontSize": 12,
+                "fontWeight": "Semibold",
+                "color": "[Dynamic based on status]"
+              },
+              {
+                "type": "Label",
+                "name": "lblMyScore",
+                "text": "[My Score or Not Reviewed]",
+                "fontSize": 12,
+                "fontWeight": "Semibold",
+                "color": "[Dynamic based on score]"
+              },
+              {
+                "type": "Icon",
+                "name": "icnPriority",
+                "icon": "[Priority indicator]",
+                "color": "[Dynamic based on priority]",
+                "visible": "Show if high priority"
+              },
+              {
+                "type": "Button",
+                "name": "btnStartReview",
+                "text": "Start Review",
+                "onSelect": "Navigate to review screen",
+                "backgroundColor": "#0078d4",
+                "color": "White",
+                "size": "Small",
+                "visible": "Show if not started"
+              },
+              {
+                "type": "Button",
+                "name": "btnContinueReview",
+                "text": "Continue",
+                "onSelect": "Navigate to review screen",
+                "backgroundColor": "#ff8c00",
+                "color": "White",
+                "size": "Small",
+                "visible": "Show if in progress"
+              },
+              {
+                "type": "Button",
+                "name": "btnViewReview",
+                "text": "View Review",
+                "onSelect": "Navigate to review screen",
+                "backgroundColor": "#107c10",
+                "color": "White",
+                "size": "Small",
+                "visible": "Show if completed"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "ReviewScreen",
+      "displayName": "Review Nomination",
+      "type": "form",
+      "dataSource": "selectedNomination",
+      "controls": [
+        {
+          "type": "Label",
+          "name": "lblReviewTitle",
+          "text": "Review Nomination",
+          "fontSize": 24,
+          "fontWeight": "Bold"
+        },
+        {
+          "type": "Label",
+          "name": "lblNominationInfo",
+          "text": "[Nomination Title] - [Category]",
+          "fontSize": 18,
+          "fontWeight": "Semibold",
+          "color": "#0078d4"
+        },
+        {
+          "type": "Rectangle",
+          "name": "rectNominationDetails",
+          "fill": "#f8f9fa",
+          "borderColor": "#dee2e6",
+          "borderThickness": 1
+        },
+        {
+          "type": "Label",
+          "name": "lblNominationDetailsTitle",
+          "text": "Nomination Details",
+          "fontSize": 16,
+          "fontWeight": "Semibold"
+        },
+        {
+          "type": "DisplayForm",
+          "name": "frmNominationDetails",
+          "item": "selectedNomination",
+          "fields": [
+            "NomineeName",
+            "NomineeEmail",
+            "NomineeDepartment",
+            "NominatorName",
+            "NominationReason",
+            "Achievements",
+            "SupportingEvidence",
+            "SubmissionDate"
+          ],
+          "mode": "View"
+        },
+        {
+          "type": "Label",
+          "name": "lblAttachmentsTitle",
+          "text": "Supporting Documents",
+          "fontSize": 16,
+          "fontWeight": "Semibold",
+          "visible": "Show if attachments exist"
+        },
+        {
+          "type": "Gallery",
+          "name": "galAttachments",
+          "items": "Nomination attachments",
+          "templateSize": 40,
+          "visible": "Show if attachments exist",
+          "template": {
+            "controls": [
+              {
+                "type": "Icon",
+                "name": "icnAttachment",
+                "icon": "Attach",
+                "color": "#0078d4"
+              },
+              {
+                "type": "Label",
+                "name": "lblAttachmentName",
+                "text": "[Attachment Name]",
+                "fontSize": 12
+              },
+              {
+                "type": "Button",
+                "name": "btnDownload",
+                "text": "Download",
+                "onSelect": "Download attachment",
+                "size": "Small"
+              }
+            ]
+          }
+        },
+        {
+          "type": "Rectangle",
+          "name": "rectReviewSection",
+          "fill": "#fff4e6",
+          "borderColor": "#ffb900",
+          "borderThickness": 2
+        },
+        {
+          "type": "Label",
+          "name": "lblReviewSectionTitle",
+          "text": "Your Review",
+          "fontSize": 18,
+          "fontWeight": "Semibold",
+          "color": "#8a8886"
+        },
+        {
+          "type": "Label",
+          "name": "lblScoringGuidelines",
+          "text": "Scoring Guidelines: 1=Poor, 2=Below Average, 3=Average, 4=Good, 5=Excellent",
+          "fontSize": 12,
+          "color": "#605e5c",
+          "wrap": true
+        },
+        {
+          "type": "Label",
+          "name": "lblOverallScore",
+          "text": "Overall Score",
+          "fontSize": 14,
+          "fontWeight": "Semibold"
+        },
+        {
+          "type": "Slider",
+          "name": "sliderOverallScore",
+          "min": 1,
+          "max": 5,
+          "step": 0.1,
+          "default": "Current score or 3",
+          "showValue": true,
+          "railFill": "#0078d4",
+          "handleFill": "#0078d4"
+        },
+        {
+          "type": "Label",
+          "name": "lblCriteriaScoring",
+          "text": "Detailed Scoring (Optional)",
+          "fontSize": 14,
+          "fontWeight": "Semibold"
+        },
+        {
+          "type": "Label",
+          "name": "lblInnovationScore",
+          "text": "Innovation & Impact",
+          "fontSize": 12
+        },
+        {
+          "type": "Slider",
+          "name": "sliderInnovation",
+          "min": 1,
+          "max": 5,
+          "step": 0.1,
+          "default": "Current score or 3",
+          "showValue": true
+        },
+        {
+          "type": "Label",
+          "name": "lblLeadershipScore",
+          "text": "Leadership & Collaboration",
+          "fontSize": 12
+        },
+        {
+          "type": "Slider",
+          "name": "sliderLeadership",
+          "min": 1,
+          "max": 5,
+          "step": 0.1,
+          "default": "Current score or 3",
+          "showValue": true
+        },
+        {
+          "type": "Label",
+          "name": "lblResultsScore",
+          "text": "Results & Achievements",
+          "fontSize": 12
+        },
+        {
+          "type": "Slider",
+          "name": "sliderResults",
+          "min": 1,
+          "max": 5,
+          "step": 0.1,
+          "default": "Current score or 3",
+          "showValue": true
+        },
+        {
+          "type": "Label",
+          "name": "lblReviewComments",
+          "text": "Review Comments",
+          "fontSize": 14,
+          "fontWeight": "Semibold"
+        },
+        {
+          "type": "TextInput",
+          "name": "txtReviewComments",
+          "displayName": "Your detailed feedback and comments",
+          "mode": "Multiline",
+          "default": "Current review comments",
+          "height": 120,
+          "hintText": "Please provide detailed feedback on the nomination, highlighting strengths and areas for improvement..."
+        },
+        {
+          "type": "Label",
+          "name": "lblRecommendation",
+          "text": "Recommendation",
+          "fontSize": 14,
+          "fontWeight": "Semibold"
+        },
+        {
+          "type": "Radio",
+          "name": "radioRecommendation",
+          "items": ["Strongly Recommend", "Recommend", "Neutral", "Do Not Recommend", "Strongly Do Not Recommend"],
+          "default": "Current recommendation or Neutral",
+          "layout": "Vertical"
+        },
+        {
+          "type": "Toggle",
+          "name": "tglShortlistRecommendation",
+          "displayName": "Recommend for Shortlist",
+          "default": "Current shortlist recommendation"
+        },
+        {
+          "type": "Label",
+          "name": "lblConfidenceLevel",
+          "text": "Confidence in Review",
+          "fontSize": 14,
+          "fontWeight": "Semibold"
+        },
+        {
+          "type": "Slider",
+          "name": "sliderConfidence",
+          "displayName": "How confident are you in this review? (1=Low, 5=High)",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": "Current confidence or 4",
+          "showValue": true
+        },
+        {
+          "type": "Button",
+          "name": "btnSaveDraft",
+          "text": "Save as Draft",
+          "onSelect": "Save review as draft",
+          "backgroundColor": "#8a8886",
+          "color": "White"
+        },
+        {
+          "type": "Button",
+          "name": "btnSubmitReview",
+          "text": "Submit Review",
+          "onSelect": "Submit final review",
+          "backgroundColor": "#107c10",
+          "color": "White"
+        },
+        {
+          "type": "Button",
+          "name": "btnBackToList",
+          "text": "Back to Assignments",
+          "onSelect": "Navigate back to assignments",
+          "backgroundColor": "Transparent",
+          "color": "#0078d4"
+        }
+      ]
+    },
+    {
+      "name": "CompletedReviewsScreen",
+      "displayName": "My Completed Reviews",
+      "type": "gallery",
+      "dataSource": "CompletedReviews",
+      "controls": [
+        {
+          "type": "Label",
+          "name": "lblCompletedTitle",
+          "text": "My Completed Reviews",
+          "fontSize": 22,
+          "fontWeight": "Bold"
+        },
+        {
+          "type": "SearchBox",
+          "name": "txtSearchCompleted",
+          "hintText": "Search completed reviews...",
+          "onTextChanged": "Set search filter"
+        },
+        {
+          "type": "Dropdown",
+          "name": "ddFilterCompletedCategory",
+          "displayName": "Filter by Category",
+          "items": "Categories from completed reviews",
+          "includeSelectAll": true,
+          "onSelectionChange": "Set category filter"
+        },
+        {
+          "type": "Dropdown",
+          "name": "ddSortCompleted",
+          "displayName": "Sort by",
+          "items": ["Review Date", "Score (High to Low)", "Score (Low to High)", "Category"],
+          "default": "Review Date",
+          "onSelectionChange": "Set sort order"
+        },
+        {
+          "type": "Gallery",
+          "name": "galCompletedReviews",
+          "items": "Filtered and sorted completed reviews",
+          "templateSize": 120,
+          "template": {
+            "controls": [
+              {
+                "type": "Rectangle",
+                "name": "rectCompletedCard",
+                "fill": "#f3f2f1",
+                "borderColor": "#107c10",
+                "borderThickness": 1
+              },
+              {
+                "type": "Label",
+                "name": "lblCompletedTitle",
+                "text": "[Nomination Title]",
+                "fontSize": 16,
+                "fontWeight": "Semibold",
+                "color": "#323130"
+              },
+              {
+                "type": "Label",
+                "name": "lblCompletedNominee",
+                "text": "[Nominee Name and Category]",
+                "fontSize": 14,
+                "color": "#605e5c"
+              },
+              {
+                "type": "Label",
+                "name": "lblReviewDate",
+                "text": "Reviewed: [Date]",
+                "fontSize": 12,
+                "color": "#8a8886"
+              },
+              {
+                "type": "Label",
+                "name": "lblMyFinalScore",
+                "text": "My Score: [Score]",
+                "fontSize": 14,
+                "fontWeight": "Semibold",
+                "color": "[Dynamic based on score]"
+              },
+              {
+                "type": "Label",
+                "name": "lblMyRecommendation",
+                "text": "[Recommendation]",
+                "fontSize": 12,
+                "fontWeight": "Semibold",
+                "color": "[Dynamic based on recommendation]"
+              },
+              {
+                "type": "Icon",
+                "name": "icnShortlistStatus",
+                "icon": "[Shortlist icon]",
+                "color": "[Dynamic based on shortlist status]",
+                "visible": "Show if recommended for shortlist"
+              },
+              {
+                "type": "Button",
+                "name": "btnViewCompletedReview",
+                "text": "View Review",
+                "onSelect": "Navigate to review details",
+                "backgroundColor": "#0078d4",
+                "color": "White",
+                "size": "Small"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "formulas": {
+    "OnStart": "Initialize reviewer context and load assignments",
+    "OnVisible": "Refresh assigned nominations and completed reviews"
+  },
+  "validation": {
+    "reviewerRole": "Check if user has reviewer permissions",
+    "minimumScoreRequired": true,
+    "commentsRequired": true,
+    "recommendationRequired": true
+  },
+  "dataConnections": {
+    "AssignedNominations": "Filter nominations by current reviewer",
+    "CompletedReviews": "Filter reviews by current reviewer",
+    "ReviewerProfile": "Current reviewer information"
+  }
+}

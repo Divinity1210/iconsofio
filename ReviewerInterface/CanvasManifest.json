@@ -1,0 +1,45 @@
+{
+  "FormatVersion": "0.24",
+  "Properties": {
+    "AppCreationSource": "AppFromScratch",
+    "AppDescription": "Interface for reviewers to evaluate assigned Icons of IO Awards nominations and provide detailed feedback",
+    "AppName": "Icons of IO - Reviewer Interface",
+    "Author": "Icons of IO Awards Team",
+    "BackgroundColor": "RGBA(248, 249, 250, 1)",
+    "DocumentLayoutHeight": 1080,
+    "DocumentLayoutLockOrientation": false,
+    "DocumentLayoutMaintainAspectRatio": false,
+    "DocumentLayoutOrientation": "landscape",
+    "DocumentLayoutScaleToFit": true,
+    "DocumentLayoutWidth": 1920,
+    "EnableInstrumentation": false,
+    "FileID": "00000000-0000-0000-0000-000000000003",
+    "Id": "00000000-0000-0000-0000-000000000003",
+    "InstrumentationKey": "",
+    "LocalConnectionReferences": "{}",
+    "LocalDatabaseReferences": "{}",
+    "Name": "Icons of IO - Reviewer Interface",
+    "OriginatingVersion": "1.0.0.0"
+  },
+  "Header": {
+    "DocVersion": "1.330",
+    "MinVersionToLoad": "1.330"
+  },
+  "PublishInfo": {
+    "AppName": "Icons of IO - Reviewer Interface",
+    "BackgroundColor": "RGBA(248, 249, 250, 1)",
+    "IconColor": "RGBA(255, 255, 255, 1)",
+    "IconName": "DocumentSearch",
+    "LogoFileName": "",
+    "PublishDataLocally": false,
+    "PublishResourcesLocally": false,
+    "PublishTarget": "player",
+    "UserLocale": "en-US"
+  },
+  "ScreenOrder": [
+    "ReviewerDashboard",
+    "AssignedNominationsScreen",
+    "ReviewScreen",
+    "CompletedReviewsScreen"
+  ]
+}

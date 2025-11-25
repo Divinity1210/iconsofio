@@ -1,0 +1,26 @@
+{
+  "ControlTemplates": [
+    {
+      "FirstParty": true,
+      "Id": "00000000-0000-0000-0000-000000000001",
+      "IsComponentTemplate": false,
+      "IsPcfControl": false,
+      "IsPremiumPcfControl": false,
+      "IsWidgetTemplate": false,
+      "LastModifiedTimestamp": "2025-01-01T00:00:00Z",
+      "Name": "appinfo",
+      "Version": "1.0"
+    },
+    {
+      "FirstParty": true,
+      "Id": "00000000-0000-0000-0000-000000000002",
+      "IsComponentTemplate": false,
+      "IsPcfControl": false,
+      "IsPremiumPcfControl": false,
+      "IsWidgetTemplate": false,
+      "LastModifiedTimestamp": "2025-01-01T00:00:00Z",
+      "Name": "label",
+      "Version": "1.0"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+NominationDetailsScreen As screen:
+    Fill: =RGBA(255,255,255,1)
+
+    lblNominationTitle As label:
+        Text: ="Nomination Details"
+        X: =40
+        Y: =40
+        ZIndex: =1
+
+    btnNextNomination As button:
+        Text: ="Next"
+        OnSelect: =Navigate(DynamicFieldsScreen, ScreenTransition.Fade)
+        X: =40
+        Y: =100
+        ZIndex: =2

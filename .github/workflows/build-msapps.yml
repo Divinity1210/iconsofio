@@ -1,0 +1,53 @@
+name: Build Canvas Apps (.msapp)
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'Scripts/**'
+      - 'build/**'
+      - '.github/workflows/build-msapps.yml'
+
+jobs:
+  build-msapps:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Enable PowerShell script execution
+        shell: pwsh
+        run: |
+          Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
+
+      - name: Ensure Power Platform CLI (dotnet tool) is available
+        shell: pwsh
+        run: |
+          try {
+            $pac = Get-Command pac -ErrorAction SilentlyContinue
+            if ($null -eq $pac) {
+              dotnet tool install -g Microsoft.PowerApps.CLI
+            }
+          } catch {
+            Write-Host "dotnet tool install failed; proceeding. build-msapps.ps1 has fallback logic."
+          }
+
+      - name: Build .msapp files via provided script
+        shell: pwsh
+        run: |
+          Scripts\build-msapps.ps1
+
+      - name: Upload .msapp artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: msapps
+          path: |
+            build/*.msapp
+
+      - name: Upload bundle zips and logs
+        uses: actions/upload-artifact@v4
+        with:
+          name: msapps-bundle-and-logs
+          path: |
+            build/*.zip
+            build/pack-logs/**

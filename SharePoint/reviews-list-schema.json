@@ -1,0 +1,25 @@
+{
+  "listName": "IconsOfIO_reviews",
+  "description": "Reviewer scores and comments for each nomination (auditable many-to-one).",
+  "fields": [
+    { "name": "Title", "type": "Text", "required": false },
+    { "name": "Nomination", "type": "Lookup", "lookupList": "nominations", "required": true },
+    { "name": "Reviewer", "type": "Lookup", "lookupList": "reviewers", "required": true },
+    { "name": "ScoreOverall", "type": "Number", "required": true },
+    { "name": "CriteriaScores", "type": "Note", "required": false },
+    { "name": "Comments", "type": "Note", "required": false },
+    { "name": "SubmittedDate", "type": "DateTime", "required": true },
+    { "name": "Status", "type": "Choice", "choices": ["Draft", "Submitted"], "required": true }
+  ],
+  "views": [
+    {
+      "name": "All Reviews",
+      "fields": ["Title", "Nomination", "Reviewer", "ScoreOverall", "SubmittedDate", "Status"]
+    },
+    {
+      "name": "By Nomination",
+      "fields": ["Nomination", "Reviewer", "ScoreOverall", "SubmittedDate"]
+    }
+  ],
+  "defaultData": []
+}

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImportExportXml version="9.2.24021.00227" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLiveTouring" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SolutionManifest>
+    <UniqueName>IconsOfIOSolution</UniqueName>
+    <LocalizedNames>
+      <LocalizedName description="Icons of IO Awards Solution" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Complete Power Apps solution for managing Icons of IO Awards nominations, reviews, and selections" languagecode="1033" />
+    </Descriptions>
+    <Version>1.0.0.0</Version>
+    <Managed>0</Managed>
+    <Publisher>
+      <UniqueName>IconsOfIOPublisher</UniqueName>
+      <LocalizedNames>
+        <LocalizedName description="Icons of IO Publisher" languagecode="1033" />
+      </LocalizedNames>
+      <Descriptions>
+        <Description description="Publisher for Icons of IO Awards Solution" languagecode="1033" />
+      </Descriptions>
+      <EMailAddress>admin@iconsofio.com</EMailAddress>
+      <SupportingWebsiteUrl>https://iconsofio.com</SupportingWebsiteUrl>
+      <CustomizationPrefix>iconsio</CustomizationPrefix>
+      <CustomizationOptionValuePrefix>10000</CustomizationOptionValuePrefix>
+      <Addresses>
+        <Address>
+          <AddressNumber>1</AddressNumber>
+          <AddressTypeCode>1</AddressTypeCode>
+          <City>Enterprise City</City>
+          <County>Enterprise County</County>
+          <Country>United States</Country>
+          <PostalCode>12345</PostalCode>
+          <StateOrProvince>Enterprise State</StateOrProvince>
+          <Street1>123 Enterprise Street</Street1>
+        </Address>
+      </Addresses>
+    </Publisher>
+    <RootComponents>
+      <RootComponent type="29" schemaName="iconsio_NominationApp" behavior="0" />
+      <RootComponent type="29" schemaName="iconsio_AdminDashboard" behavior="0" />
+      <RootComponent type="29" schemaName="iconsio_ReviewerInterface" behavior="0" />
+      <RootComponent type="29" schemaName="iconsio_FinalSelectionApp" behavior="0" />
+      <RootComponent type="29" schemaName="iconsio_ReportingDashboard" behavior="0" />
+    </RootComponents>
+    <MissingDependencies />
+  </SolutionManifest>
+</ImportExportXml>

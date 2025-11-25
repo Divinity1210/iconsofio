@@ -1,0 +1,5 @@
+App:
+  Control: App
+  Properties:
+    AppDisplayName: "Icons of IO - ReportingDashboard"
+    Description: "Reporting dashboard (skeleton)"

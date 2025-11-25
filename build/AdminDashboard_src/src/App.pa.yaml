@@ -1,0 +1,5 @@
+App:
+  Control: App
+  Properties:
+    AppDisplayName: "Icons of IO - AdminDashboard"
+    Description: "Admin dashboard (skeleton)"

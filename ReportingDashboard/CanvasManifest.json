@@ -1,0 +1,42 @@
+{
+  "FormatVersion": "0.24",
+  "Properties": {
+    "AppCreationSource": "AppFromScratch",
+    "AppDescription": "Comprehensive analytics and reporting dashboard for Icons of IO Awards with metrics, charts, and export capabilities",
+    "AppName": "Icons of IO - Reporting Dashboard",
+    "Author": "Icons of IO Awards Team",
+    "BackgroundColor": "RGBA(248, 249, 250, 1)",
+    "DocumentLayoutHeight": 1080,
+    "DocumentLayoutLockOrientation": false,
+    "DocumentLayoutMaintainAspectRatio": false,
+    "DocumentLayoutOrientation": "landscape",
+    "DocumentLayoutScaleToFit": true,
+    "DocumentLayoutWidth": 1920,
+    "EnableInstrumentation": false,
+    "FileID": "00000000-0000-0000-0000-000000000005",
+    "Id": "00000000-0000-0000-0000-000000000005",
+    "InstrumentationKey": "",
+    "LocalConnectionReferences": "{}",
+    "LocalDatabaseReferences": "{}",
+    "Name": "Icons of IO - Reporting Dashboard",
+    "OriginatingVersion": "1.0.0.0"
+  },
+  "Header": {
+    "DocVersion": "1.330",
+    "MinVersionToLoad": "1.330"
+  },
+  "PublishInfo": {
+    "AppName": "Icons of IO - Reporting Dashboard",
+    "BackgroundColor": "RGBA(248, 249, 250, 1)",
+    "IconColor": "RGBA(255, 255, 255, 1)",
+    "IconName": "BarChart",
+    "LogoFileName": "",
+    "PublishDataLocally": false,
+    "PublishResourcesLocally": false,
+    "PublishTarget": "player",
+    "UserLocale": "en-US"
+  },
+  "ScreenOrder": [
+    "ReportingDashboard"
+  ]
+}

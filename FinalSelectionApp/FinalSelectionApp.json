@@ -1,0 +1,728 @@
+{
+  "name": "IconsOfIO_FinalSelectionApp",
+  "displayName": "Icons of IO Awards - Final Selection",
+  "description": "Leadership interface for final selection and award decisions on shortlisted nominations",
+  "version": "1.0.0.0",
+  "screens": [
+    {
+      "name": "SelectionDashboard",
+      "displayName": "Final Selection Dashboard",
+      "type": "dashboard",
+      "controls": [
+        {
+          "type": "Label",
+          "name": "lblWelcome",
+          "text": "Icons of IO Awards - Final Selection",
+          "fontSize": 28,
+          "fontWeight": "Bold",
+          "color": "#1f4e79"
+        },
+        {
+          "type": "Label",
+          "name": "lblSelectionPeriod",
+          "text": "Selection Period: [Award Year]",
+          "fontSize": 16,
+          "color": "#605e5c"
+        },
+        {
+          "type": "Rectangle",
+          "name": "rectStatsContainer",
+          "fill": "#f8f9fa",
+          "borderColor": "#dee2e6",
+          "borderThickness": 1
+        },
+        {
+          "type": "Label",
+          "name": "lblShortlistedCount",
+          "text": "Shortlisted Nominations: [Dynamic Count]",
+          "fontSize": 18,
+          "fontWeight": "Semibold",
+          "color": "#8764b8"
+        },
+        {
+          "type": "Label",
+          "name": "lblSelectedCount",
+          "text": "Winners Selected: [Dynamic Count]",
+          "fontSize": 16,
+          "color": "#107c10"
+        },
+        {
+          "type": "Label",
+          "name": "lblPendingDecisions",
+          "text": "Pending Decisions: [Dynamic Count]",
+          "fontSize": 16,
+          "color": "#d13438"
+        },
+        {
+          "type": "Label",
+          "name": "lblAverageScore",
+          "text": "Average Reviewer Score: [Dynamic Average]",
+          "fontSize": 14,
+          "color": "#0078d4"
+        },
+        {
+          "type": "Button",
+          "name": "btnViewShortlist",
+          "text": "View Shortlisted Nominations",
+          "onSelect": "Navigate to shortlist screen",
+          "backgroundColor": "#8764b8",
+          "color": "White"
+        },
+        {
+          "type": "Button",
+          "name": "btnCategoryReview",
+          "text": "Review by Category",
+          "onSelect": "Navigate to category review",
+          "backgroundColor": "#0078d4",
+          "color": "White"
+        },
+        {
+          "type": "Button",
+          "name": "btnFinalizeSelections",
+          "text": "Finalize Selections",
+          "onSelect": "Navigate to finalization screen",
+          "backgroundColor": "#107c10",
+          "color": "White"
+        },
+        {
+          "type": "Button",
+          "name": "btnSelectionSummary",
+          "text": "Selection Summary Report",
+          "onSelect": "Navigate to summary report",
+          "backgroundColor": "#ca5010",
+          "color": "White"
+        }
+      ]
+    },
+    {
+      "name": "ShortlistScreen",
+      "displayName": "Shortlisted Nominations",
+      "type": "gallery",
+      "dataSource": "ShortlistedNominations",
+      "controls": [
+        {
+          "type": "Label",
+          "name": "lblShortlistTitle",
+          "text": "Shortlisted Nominations for Final Selection",
+          "fontSize": 24,
+          "fontWeight": "Bold"
+        },
+        {
+          "type": "SearchBox",
+          "name": "txtSearchShortlist",
+          "hintText": "Search by nominee, category, or nominator...",
+          "onTextChanged": "Set search filter"
+        },
+        {
+          "type": "Dropdown",
+          "name": "ddFilterCategory",
+          "displayName": "Filter by Category",
+          "items": "Categories from shortlisted nominations",
+          "includeSelectAll": true,
+          "onSelectionChange": "Set category filter"
+        },
+        {
+          "type": "Dropdown",
+          "name": "ddFilterDecisionStatus",
+          "displayName": "Filter by Decision Status",
+          "items": ["All", "Pending Decision", "Selected as Winner", "Not Selected", "Under Discussion"],
+          "default": "All",
+          "onSelectionChange": "Set decision status filter"
+        },
+        {
+          "type": "Dropdown",
+          "name": "ddSortShortlist",
+          "displayName": "Sort by",
+          "items": ["Average Score (High to Low)", "Average Score (Low to High)", "Category", "Nominee Name", "Review Count"],
+          "default": "Average Score (High to Low)",
+          "onSelectionChange": "Set sort order"
+        },
+        {
+          "type": "Toggle",
+          "name": "tglShowOnlyTopScored",
+          "displayName": "Show only top-scored nominations (4.0+)",
+          "default": false,
+          "onCheck": "Apply score filter"
+        },
+        {
+          "type": "Gallery",
+          "name": "galShortlistedNominations",
+          "items": "Filtered and sorted shortlisted nominations",
+          "templateSize": 160,
+          "template": {
+            "controls": [
+              {
+                "type": "Rectangle",
+                "name": "rectShortlistCard",
+                "fill": "White",
+                "borderColor": "#8764b8",
+                "borderThickness": 2
+              },
+              {
+                "type": "Label",
+                "name": "lblNominationTitle",
+                "text": "[Nomination Title]",
+                "fontSize": 16,
+                "fontWeight": "Bold",
+                "color": "#323130"
+              },
+              {
+                "type": "Label",
+                "name": "lblNomineeInfo",
+                "text": "[Nominee Name and Category]",
+                "fontSize": 14,
+                "fontWeight": "Semibold",
+                "color": "#8764b8"
+              },
+              {
+                "type": "Label",
+                "name": "lblNominatorInfo",
+                "text": "Nominated by: [Nominator Name]",
+                "fontSize": 12,
+                "color": "#605e5c"
+              },
+              {
+                "type": "Label",
+                "name": "lblAverageScore",
+                "text": "Avg Score: [Score] ([Review Count] reviews)",
+                "fontSize": 14,
+                "fontWeight": "Semibold",
+                "color": "[Dynamic based on score]"
+              },
+              {
+                "type": "Label",
+                "name": "lblScoreBreakdown",
+                "text": "Innovation: [Score] | Leadership: [Score] | Results: [Score]",
+                "fontSize": 11,
+                "color": "#8a8886"
+              },
+              {
+                "type": "Label",
+                "name": "lblDecisionStatus",
+                "text": "[Decision Status]",
+                "fontSize": 12,
+                "fontWeight": "Semibold",
+                "color": "[Dynamic based on status]"
+              },
+              {
+                "type": "Icon",
+                "name": "icnWinnerStatus",
+                "icon": "Trophy",
+                "color": "#ffb900",
+                "visible": "Show if selected as winner"
+              },
+              {
+                "type": "Button",
+                "name": "btnReviewDetails",
+                "text": "Review Details",
+                "onSelect": "Navigate to detailed review",
+                "backgroundColor": "#0078d4",
+                "color": "White",
+                "size": "Small"
+              },
+              {
+                "type": "Button",
+                "name": "btnMakeDecision",
+                "text": "Make Decision",
+                "onSelect": "Open decision dialog",
+                "backgroundColor": "#8764b8",
+                "color": "White",
+                "size": "Small",
+                "visible": "Show if decision pending"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "DetailedReviewScreen",
+      "displayName": "Detailed Nomination Review",
+      "type": "form",
+      "dataSource": "selectedNomination",
+      "controls": [
+        {
+          "type": "Label",
+          "name": "lblDetailedReviewTitle",
+          "text": "Detailed Review - Final Selection",
+          "fontSize": 24,
+          "fontWeight": "Bold"
+        },
+        {
+          "type": "Label",
+          "name": "lblNominationHeader",
+          "text": "[Nomination Title] - [Category]",
+          "fontSize": 20,
+          "fontWeight": "Semibold",
+          "color": "#8764b8"
+        },
+        {
+          "type": "Rectangle",
+          "name": "rectNomineeDetails",
+          "fill": "#f8f9fa",
+          "borderColor": "#dee2e6",
+          "borderThickness": 1
+        },
+        {
+          "type": "Label",
+          "name": "lblNomineeDetailsTitle",
+          "text": "Nominee Information",
+          "fontSize": 18,
+          "fontWeight": "Semibold"
+        },
+        {
+          "type": "DisplayForm",
+          "name": "frmNomineeDetails",
+          "item": "selectedNomination",
+          "fields": [
+            "NomineeName",
+            "NomineeEmail",
+            "NomineeDepartment",
+            "NomineeRole",
+            "NominatorName",
+            "NominatorDepartment",
+            "SubmissionDate"
+          ],
+          "mode": "View"
+        },
+        {
+          "type": "Rectangle",
+          "name": "rectNominationContent",
+          "fill": "#fff4e6",
+          "borderColor": "#ffb900",
+          "borderThickness": 1
+        },
+        {
+          "type": "Label",
+          "name": "lblNominationContentTitle",
+          "text": "Nomination Details",
+          "fontSize": 18,
+          "fontWeight": "Semibold"
+        },
+        {
+          "type": "Label",
+          "name": "lblNominationReason",
+          "text": "Nomination Reason",
+          "fontSize": 14,
+          "fontWeight": "Semibold"
+        },
+        {
+          "type": "Label",
+          "name": "lblNominationReasonText",
+          "text": "[Nomination Reason Text]",
+          "fontSize": 12,
+          "wrap": true,
+          "height": 80
+        },
+        {
+          "type": "Label",
+          "name": "lblAchievements",
+          "text": "Key Achievements",
+          "fontSize": 14,
+          "fontWeight": "Semibold"
+        },
+        {
+          "type": "Label",
+          "name": "lblAchievementsText",
+          "text": "[Achievements Text]",
+          "fontSize": 12,
+          "wrap": true,
+          "height": 80
+        },
+        {
+          "type": "Label",
+          "name": "lblSupportingEvidence",
+          "text": "Supporting Evidence",
+          "fontSize": 14,
+          "fontWeight": "Semibold"
+        },
+        {
+          "type": "Label",
+          "name": "lblSupportingEvidenceText",
+          "text": "[Supporting Evidence Text]",
+          "fontSize": 12,
+          "wrap": true,
+          "height": 60
+        },
+        {
+          "type": "Rectangle",
+          "name": "rectReviewScores",
+          "fill": "#e6f3ff",
+          "borderColor": "#0078d4",
+          "borderThickness": 1
+        },
+        {
+          "type": "Label",
+          "name": "lblReviewScoresTitle",
+          "text": "Reviewer Scores & Feedback",
+          "fontSize": 18,
+          "fontWeight": "Semibold"
+        },
+        {
+          "type": "Label",
+          "name": "lblOverallScore",
+          "text": "Overall Average Score: [Score]/5.0",
+          "fontSize": 16,
+          "fontWeight": "Bold",
+          "color": "[Dynamic based on score]"
+        },
+        {
+          "type": "Label",
+          "name": "lblScoreBreakdown",
+          "text": "Innovation: [Score] | Leadership: [Score] | Results: [Score]",
+          "fontSize": 14,
+          "color": "#0078d4"
+        },
+        {
+          "type": "Label",
+          "name": "lblReviewCount",
+          "text": "Based on [Count] reviewer evaluations",
+          "fontSize": 12,
+          "color": "#605e5c"
+        },
+        {
+          "type": "Gallery",
+          "name": "galReviewerComments",
+          "items": "Reviewer comments for this nomination",
+          "templateSize": 100,
+          "template": {
+            "controls": [
+              {
+                "type": "Rectangle",
+                "name": "rectCommentCard",
+                "fill": "White",
+                "borderColor": "#e1e5e9",
+                "borderThickness": 1
+              },
+              {
+                "type": "Label",
+                "name": "lblReviewerName",
+                "text": "[Reviewer Name] - Score: [Score]/5.0",
+                "fontSize": 12,
+                "fontWeight": "Semibold"
+              },
+              {
+                "type": "Label",
+                "name": "lblReviewerComment",
+                "text": "[Reviewer Comment]",
+                "fontSize": 11,
+                "wrap": true,
+                "height": 60
+              },
+              {
+                "type": "Label",
+                "name": "lblRecommendation",
+                "text": "Recommendation: [Recommendation]",
+                "fontSize": 10,
+                "color": "[Dynamic based on recommendation]"
+              }
+            ]
+          }
+        },
+        {
+          "type": "Rectangle",
+          "name": "rectFinalDecision",
+          "fill": "#f0f8ff",
+          "borderColor": "#107c10",
+          "borderThickness": 2
+        },
+        {
+          "type": "Label",
+          "name": "lblFinalDecisionTitle",
+          "text": "Final Selection Decision",
+          "fontSize": 18,
+          "fontWeight": "Semibold",
+          "color": "#107c10"
+        },
+        {
+          "type": "Radio",
+          "name": "radioFinalDecision",
+          "displayName": "Final Decision",
+          "items": ["Select as Winner", "Not Selected", "Defer Decision", "Requires Discussion"],
+          "default": "Current decision or Defer Decision",
+          "layout": "Horizontal"
+        },
+        {
+          "type": "Label",
+          "name": "lblLeadershipComments",
+          "text": "Leadership Comments",
+          "fontSize": 14,
+          "fontWeight": "Semibold"
+        },
+        {
+          "type": "TextInput",
+          "name": "txtLeadershipComments",
+          "displayName": "Final selection rationale and comments",
+          "mode": "Multiline",
+          "default": "Current leadership comments",
+          "height": 100,
+          "hintText": "Please provide rationale for the final decision..."
+        },
+        {
+          "type": "Toggle",
+          "name": "tglPublicRecognition",
+          "displayName": "Include in Public Recognition",
+          "default": "Current public recognition status"
+        },
+        {
+          "type": "Dropdown",
+          "name": "ddAwardLevel",
+          "displayName": "Award Level (if selected)",
+          "items": ["Gold Award", "Silver Award", "Bronze Award", "Special Recognition"],
+          "visible": "Show if selected as winner",
+          "default": "Current award level"
+        },
+        {
+          "type": "Button",
+          "name": "btnSaveDecision",
+          "text": "Save Decision",
+          "onSelect": "Save final decision",
+          "backgroundColor": "#107c10",
+          "color": "White"
+        },
+        {
+          "type": "Button",
+          "name": "btnBackToShortlist",
+          "text": "Back to Shortlist",
+          "onSelect": "Navigate back to shortlist",
+          "backgroundColor": "Transparent",
+          "color": "#0078d4"
+        }
+      ]
+    },
+    {
+      "name": "CategoryReviewScreen",
+      "displayName": "Category-based Review",
+      "type": "gallery",
+      "controls": [
+        {
+          "type": "Label",
+          "name": "lblCategoryReviewTitle",
+          "text": "Review by Category",
+          "fontSize": 24,
+          "fontWeight": "Bold"
+        },
+        {
+          "type": "Dropdown",
+          "name": "ddSelectCategory",
+          "displayName": "Select Category to Review",
+          "items": "Available categories with shortlisted nominations",
+          "onSelectionChange": "Filter nominations by category"
+        },
+        {
+          "type": "Label",
+          "name": "lblCategoryStats",
+          "text": "[Category Name]: [Count] shortlisted nominations",
+          "fontSize": 16,
+          "fontWeight": "Semibold",
+          "color": "#8764b8"
+        },
+        {
+          "type": "Gallery",
+          "name": "galCategoryNominations",
+          "items": "Nominations filtered by selected category",
+          "templateSize": 140,
+          "template": {
+            "controls": [
+              {
+                "type": "Rectangle",
+                "name": "rectCategoryCard",
+                "fill": "White",
+                "borderColor": "#0078d4",
+                "borderThickness": 1
+              },
+              {
+                "type": "Label",
+                "name": "lblRanking",
+                "text": "#[Rank]",
+                "fontSize": 18,
+                "fontWeight": "Bold",
+                "color": "#8764b8"
+              },
+              {
+                "type": "Label",
+                "name": "lblCategoryNomineeInfo",
+                "text": "[Nominee Name]",
+                "fontSize": 16,
+                "fontWeight": "Semibold"
+              },
+              {
+                "type": "Label",
+                "name": "lblCategoryScore",
+                "text": "Score: [Score]/5.0",
+                "fontSize": 14,
+                "fontWeight": "Semibold",
+                "color": "[Dynamic based on score]"
+              },
+              {
+                "type": "Label",
+                "name": "lblCategoryDecision",
+                "text": "[Decision Status]",
+                "fontSize": 12,
+                "color": "[Dynamic based on decision]"
+              },
+              {
+                "type": "Button",
+                "name": "btnQuickSelect",
+                "text": "Select Winner",
+                "onSelect": "Quick select as winner",
+                "backgroundColor": "#107c10",
+                "color": "White",
+                "size": "Small",
+                "visible": "Show if not yet selected"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "FinalizationScreen",
+      "displayName": "Finalize Selections",
+      "type": "form",
+      "controls": [
+        {
+          "type": "Label",
+          "name": "lblFinalizationTitle",
+          "text": "Finalize Award Selections",
+          "fontSize": 24,
+          "fontWeight": "Bold"
+        },
+        {
+          "type": "Label",
+          "name": "lblFinalizationWarning",
+          "text": "⚠️ Warning: Once finalized, selections cannot be changed without admin override.",
+          "fontSize": 14,
+          "color": "#d13438",
+          "wrap": true
+        },
+        {
+          "type": "Rectangle",
+          "name": "rectSelectionSummary",
+          "fill": "#f8f9fa",
+          "borderColor": "#dee2e6",
+          "borderThickness": 1
+        },
+        {
+          "type": "Label",
+          "name": "lblSummaryTitle",
+          "text": "Selection Summary",
+          "fontSize": 18,
+          "fontWeight": "Semibold"
+        },
+        {
+          "type": "Gallery",
+          "name": "galSelectedWinners",
+          "items": "Selected winners",
+          "templateSize": 80,
+          "template": {
+            "controls": [
+              {
+                "type": "Rectangle",
+                "name": "rectWinnerCard",
+                "fill": "#fff4e6",
+                "borderColor": "#ffb900",
+                "borderThickness": 2
+              },
+              {
+                "type": "Icon",
+                "name": "icnTrophy",
+                "icon": "Trophy",
+                "color": "#ffb900"
+              },
+              {
+                "type": "Label",
+                "name": "lblWinnerName",
+                "text": "[Winner Name] - [Category]",
+                "fontSize": 14,
+                "fontWeight": "Semibold"
+              },
+              {
+                "type": "Label",
+                "name": "lblWinnerAward",
+                "text": "[Award Level]",
+                "fontSize": 12,
+                "color": "#8764b8"
+              }
+            ]
+          }
+        },
+        {
+          "type": "Label",
+          "name": "lblTotalWinners",
+          "text": "Total Winners Selected: [Count]",
+          "fontSize": 16,
+          "fontWeight": "Semibold",
+          "color": "#107c10"
+        },
+        {
+          "type": "Label",
+          "name": "lblFinalizationComments",
+          "text": "Final Comments & Notes",
+          "fontSize": 14,
+          "fontWeight": "Semibold"
+        },
+        {
+          "type": "TextInput",
+          "name": "txtFinalizationComments",
+          "displayName": "Overall comments on the selection process",
+          "mode": "Multiline",
+          "height": 100,
+          "hintText": "Any final comments on the selection process, notable decisions, or recommendations for next year..."
+        },
+        {
+          "type": "Toggle",
+          "name": "tglNotifyWinners",
+          "displayName": "Send notification to winners",
+          "default": true
+        },
+        {
+          "type": "Toggle",
+          "name": "tglNotifyNominators",
+          "displayName": "Send notification to nominators",
+          "default": true
+        },
+        {
+          "type": "Toggle",
+          "name": "tglGenerateReports",
+          "displayName": "Generate final reports",
+          "default": true
+        },
+        {
+          "type": "Button",
+          "name": "btnFinalizeSelections",
+          "text": "🏆 FINALIZE SELECTIONS",
+          "onSelect": "Finalize all selections",
+          "backgroundColor": "#107c10",
+          "color": "White",
+          "fontSize": 16,
+          "fontWeight": "Bold"
+        },
+        {
+          "type": "Button",
+          "name": "btnBackToDashboard",
+          "text": "Back to Dashboard",
+          "onSelect": "Navigate back to dashboard",
+          "backgroundColor": "Transparent",
+          "color": "#0078d4"
+        }
+      ]
+    }
+  ],
+  "formulas": {
+    "OnStart": "Initialize leadership context and load shortlisted nominations",
+    "OnVisible": "Refresh shortlist and selection status"
+  },
+  "validation": {
+    "leadershipRole": "Check if user has leadership/final selection permissions",
+    "decisionRequired": true,
+    "commentsRequired": true,
+    "finalizationConfirmation": true
+  },
+  "dataConnections": {
+    "ShortlistedNominations": "Filter nominations with shortlist status",
+    "SelectedWinners": "Filter nominations with winner status",
+    "ReviewerFeedback": "All reviewer comments and scores",
+    "LeadershipDecisions": "Final selection decisions and comments"
+  }
+}

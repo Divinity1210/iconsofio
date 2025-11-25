@@ -1,0 +1,15 @@
+NominatorDetailsScreen As screen:
+    Fill: =RGBA(255,255,255,1)
+
+    lblNominatorTitle As label:
+        Text: ="Your Details"
+        X: =40
+        Y: =40
+        ZIndex: =1
+
+    btnNextNominator As button:
+        Text: ="Next"
+        OnSelect: =Navigate(NominationDetailsScreen, ScreenTransition.Fade)
+        X: =40
+        Y: =100
+        ZIndex: =2

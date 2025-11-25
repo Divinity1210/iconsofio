@@ -1,0 +1,66 @@
+name: Release Canvas Apps (.msapp only)
+
+on:
+  workflow_dispatch:
+    inputs:
+      version_tag:
+        description: "Release tag (e.g., v1.0.1)"
+        required: true
+        default: "v1.0.1"
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-msapps:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Enable PowerShell script execution
+        shell: pwsh
+        run: |
+          Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
+
+      - name: Ensure Power Platform CLI (dotnet tool)
+        shell: pwsh
+        run: |
+          try {
+            $pacCmd = Get-Command pac -ErrorAction SilentlyContinue
+            if ($null -eq $pacCmd) { dotnet tool install -g Microsoft.PowerApps.CLI }
+          } catch {}
+
+      - name: Build .msapp files
+        shell: pwsh
+        run: |
+          Scripts\build-msapps.ps1
+
+      - name: Upload .msapp artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: msapps
+          path: build/*.msapp
+
+  create-release:
+    runs-on: ubuntu-latest
+    needs: build-msapps
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download msapps artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: msapps
+          path: dist/msapps
+
+      - name: Create GitHub Release and upload assets
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.event.inputs.version_tag || github.ref_name }}
+          name: Icons of IO Apps ${{ github.event.inputs.version_tag || github.ref_name }}
+          files: |
+            dist/msapps/*.msapp
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

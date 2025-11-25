@@ -1,0 +1,392 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/powerapps/security/v1.0/security.schema.json",
+  "securityConfiguration": {
+    "version": "1.0",
+    "description": "Role-based access control configuration for Icons of IO Awards System",
+    "roles": [
+      {
+        "roleName": "Nominator",
+        "roleId": "iio_nominator",
+        "description": "Users who can submit nominations for awards",
+        "permissions": {
+          "nominations": {
+            "create": true,
+            "read": "own",
+            "update": "own_draft",
+            "delete": "own_draft"
+          },
+          "categories": {
+            "read": "active_only"
+          },
+          "reviewers": {
+            "read": false
+          },
+          "reports": {
+            "access": false
+          },
+          "admin_functions": {
+            "access": false
+          }
+        },
+        "dataAccess": {
+          "sharePointLists": {
+            "nominations": {
+              "permissions": "contribute",
+              "filter": "CreatedBy eq @me",
+              "fields": {
+                "restricted": ["AdminScore", "ReviewerScore", "InternalComments", "ReviewerAssigned"]
+              }
+            },
+            "categories": {
+              "permissions": "read",
+              "filter": "IsActive eq true"
+            }
+          }
+        },
+        "appAccess": {
+          "nominationApp": true,
+          "adminDashboard": false,
+          "reviewerInterface": false,
+          "finalSelectionApp": false,
+          "reportingDashboard": false
+        }
+      },
+      {
+        "roleName": "Reviewer",
+        "roleId": "iio_reviewer",
+        "description": "Users who can review and score assigned nominations",
+        "permissions": {
+          "nominations": {
+            "create": false,
+            "read": "assigned",
+            "update": "assigned_scoring",
+            "delete": false
+          },
+          "categories": {
+            "read": "all"
+          },
+          "reviewers": {
+            "read": "basic_info"
+          },
+          "reports": {
+            "access": "own_progress"
+          },
+          "admin_functions": {
+            "access": false
+          }
+        },
+        "dataAccess": {
+          "sharePointLists": {
+            "nominations": {
+              "permissions": "edit",
+              "filter": "ReviewerAssigned eq @me or Status eq 'UnderReview'",
+              "fields": {
+                "editable": ["ReviewerScore", "ReviewerComments", "ReviewStatus", "ReviewDate"],
+                "restricted": ["AdminScore", "InternalComments", "FinalDecision"]
+              }
+            },
+            "categories": {
+              "permissions": "read"
+            },
+            "reviewers": {
+              "permissions": "read",
+              "filter": "IsActive eq true",
+              "fields": {
+                "visible": ["Name", "Department", "Specialization"]
+              }
+            }
+          }
+        },
+        "appAccess": {
+          "nominationApp": true,
+          "adminDashboard": false,
+          "reviewerInterface": true,
+          "finalSelectionApp": false,
+          "reportingDashboard": "limited"
+        }
+      },
+      {
+        "roleName": "Administrator",
+        "roleId": "iio_administrator",
+        "description": "Users who can manage the entire awards process",
+        "permissions": {
+          "nominations": {
+            "create": true,
+            "read": "all",
+            "update": "all",
+            "delete": "all"
+          },
+          "categories": {
+            "read": "all",
+            "create": true,
+            "update": true,
+            "delete": true
+          },
+          "reviewers": {
+            "read": "all",
+            "create": true,
+            "update": true,
+            "delete": true,
+            "assign": true
+          },
+          "reports": {
+            "access": "all",
+            "export": true
+          },
+          "admin_functions": {
+            "access": true,
+            "bulk_operations": true,
+            "system_settings": true
+          }
+        },
+        "dataAccess": {
+          "sharePointLists": {
+            "nominations": {
+              "permissions": "full_control"
+            },
+            "categories": {
+              "permissions": "full_control"
+            },
+            "reviewers": {
+              "permissions": "full_control"
+            }
+          }
+        },
+        "appAccess": {
+          "nominationApp": true,
+          "adminDashboard": true,
+          "reviewerInterface": true,
+          "finalSelectionApp": false,
+          "reportingDashboard": true
+        }
+      },
+      {
+        "roleName": "Leadership",
+        "roleId": "iio_leadership",
+        "description": "Senior leadership who make final award decisions",
+        "permissions": {
+          "nominations": {
+            "create": false,
+            "read": "shortlisted",
+            "update": "final_decision",
+            "delete": false
+          },
+          "categories": {
+            "read": "all"
+          },
+          "reviewers": {
+            "read": "summary"
+          },
+          "reports": {
+            "access": "executive_summary",
+            "export": true
+          },
+          "admin_functions": {
+            "access": "limited",
+            "final_approval": true
+          }
+        },
+        "dataAccess": {
+          "sharePointLists": {
+            "nominations": {
+              "permissions": "edit",
+              "filter": "Status eq 'Shortlisted' or Status eq 'Selected'",
+              "fields": {
+                "editable": ["FinalDecision", "LeadershipComments", "WinnerStatus", "SelectionDate"],
+                "visible": "all"
+              }
+            },
+            "categories": {
+              "permissions": "read"
+            },
+            "reviewers": {
+              "permissions": "read",
+              "fields": {
+                "visible": ["Name", "Department", "ReviewCount", "AverageScore"]
+              }
+            }
+          }
+        },
+        "appAccess": {
+          "nominationApp": false,
+          "adminDashboard": "read_only",
+          "reviewerInterface": false,
+          "finalSelectionApp": true,
+          "reportingDashboard": true
+        }
+      },
+      {
+        "roleName": "System_Admin",
+        "roleId": "iio_system_admin",
+        "description": "Technical administrators with full system access",
+        "permissions": {
+          "nominations": {
+            "create": true,
+            "read": "all",
+            "update": "all",
+            "delete": "all"
+          },
+          "categories": {
+            "read": "all",
+            "create": true,
+            "update": true,
+            "delete": true
+          },
+          "reviewers": {
+            "read": "all",
+            "create": true,
+            "update": true,
+            "delete": true,
+            "assign": true
+          },
+          "reports": {
+            "access": "all",
+            "export": true,
+            "system_logs": true
+          },
+          "admin_functions": {
+            "access": true,
+            "bulk_operations": true,
+            "system_settings": true,
+            "user_management": true,
+            "security_settings": true
+          }
+        },
+        "dataAccess": {
+          "sharePointLists": {
+            "nominations": {
+              "permissions": "full_control"
+            },
+            "categories": {
+              "permissions": "full_control"
+            },
+            "reviewers": {
+              "permissions": "full_control"
+            }
+          }
+        },
+        "appAccess": {
+          "nominationApp": true,
+          "adminDashboard": true,
+          "reviewerInterface": true,
+          "finalSelectionApp": true,
+          "reportingDashboard": true
+        }
+      }
+    ],
+    "securityGroups": {
+      "sharePointGroups": {
+        "IIO_Nominators": {
+          "description": "All users who can submit nominations",
+          "permissions": "Contribute",
+          "associatedRole": "iio_nominator"
+        },
+        "IIO_Reviewers": {
+          "description": "Users assigned to review nominations",
+          "permissions": "Edit",
+          "associatedRole": "iio_reviewer"
+        },
+        "IIO_Administrators": {
+          "description": "Awards process administrators",
+          "permissions": "Full Control",
+          "associatedRole": "iio_administrator"
+        },
+        "IIO_Leadership": {
+          "description": "Senior leadership for final decisions",
+          "permissions": "Edit",
+          "associatedRole": "iio_leadership"
+        },
+        "IIO_System_Admins": {
+          "description": "Technical system administrators",
+          "permissions": "Full Control",
+          "associatedRole": "iio_system_admin"
+        }
+      }
+    },
+    "accessControlRules": {
+      "timeBasedAccess": {
+        "nominationPeriod": {
+          "description": "Nomination submission window",
+          "startDate": "configurable",
+          "endDate": "configurable",
+          "affectedRoles": ["iio_nominator"],
+          "restrictedActions": ["create_nomination"]
+        },
+        "reviewPeriod": {
+          "description": "Review and scoring window",
+          "startDate": "configurable",
+          "endDate": "configurable",
+          "affectedRoles": ["iio_reviewer"],
+          "restrictedActions": ["update_scores", "add_comments"]
+        },
+        "finalSelectionPeriod": {
+          "description": "Leadership decision window",
+          "startDate": "configurable",
+          "endDate": "configurable",
+          "affectedRoles": ["iio_leadership"],
+          "restrictedActions": ["final_decision"]
+        }
+      },
+      "dataValidation": {
+        "scoreValidation": {
+          "description": "Ensure scores are within valid range",
+          "rules": {
+            "minScore": 1,
+            "maxScore": 5,
+            "requiredFields": ["ReviewerComments"]
+          }
+        },
+        "nominationValidation": {
+          "description": "Validate nomination completeness",
+          "rules": {
+            "requiredFields": ["NomineeName", "Category", "NominationReason"],
+            "maxFileSize": "10MB",
+            "allowedFileTypes": [".pdf", ".doc", ".docx", ".jpg", ".png"]
+          }
+        }
+      },
+      "auditingRules": {
+        "logAllActions": true,
+        "retentionPeriod": "7 years",
+        "sensitiveActions": [
+          "role_assignment",
+          "permission_change",
+          "data_export",
+          "final_decision",
+          "bulk_operations"
+        ]
+      }
+    },
+    "integrationSecurity": {
+      "powerPlatform": {
+        "environmentSecurity": {
+          "dataLossPrevention": true,
+          "connectorRestrictions": [
+            "SharePoint",
+            "Office 365 Users",
+            "Office 365 Outlook",
+            "Microsoft Teams"
+          ]
+        },
+        "appSecurity": {
+          "requireMFA": true,
+          "sessionTimeout": "8 hours",
+          "allowedDomains": ["@company.com"],
+          "blockPersonalAccounts": true
+        }
+      },
+      "sharePointSecurity": {
+        "listSecurity": {
+          "inheritPermissions": false,
+          "breakRoleInheritance": true,
+          "enableVersioning": true,
+          "requireCheckout": false
+        },
+        "itemLevelSecurity": {
+          "enableItemLevelPermissions": true,
+          "audienceTargeting": true
+        }
+      }
+    }
+  }
+}

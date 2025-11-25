@@ -1,0 +1,9 @@
+{
+  "Themes": [
+    { "EntityName": "PowerAppsTheme", "ThemeName": "PowerAppsTheme" },
+    { "EntityName": "PlatinumTheme", "ThemeName": "PlatinumTheme" },
+    { "EntityName": "OrangeTheme", "ThemeName": "OrangeTheme" },
+    { "EntityName": "TeamsTheme", "ThemeName": "TeamsTheme" },
+    { "EntityName": "SharePointTheme", "ThemeName": "SharePointTheme" }
+  ]
+}

@@ -1,0 +1,8 @@
+ConfirmationScreen As screen:
+    Fill: =RGBA(255,255,255,1)
+
+    lblConfirmationTitle As label:
+        Text: ="Thank you — your nomination has been submitted."
+        X: =40
+        Y: =40
+        ZIndex: =1

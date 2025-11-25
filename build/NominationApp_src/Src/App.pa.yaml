@@ -1,0 +1,5 @@
+App:
+  Control: App
+  Properties:
+    AppDisplayName: "Icons of IO - NominationApp"
+    Description: "Public-facing nomination form (skeleton)"

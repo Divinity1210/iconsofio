@@ -1,0 +1,39 @@
+{
+  "FormatVersion": "0.24",
+  "Properties": {
+    "AppDisplayName": "Icons of IO - Reporting Dashboard",
+    "AppPreviewFlagsMap": {
+      "showclassicthemes": false
+    },
+    "Author": "Icons of IO Awards Team",
+    "BackgroundColor": "RGBA(248, 249, 250, 1)",
+    "DocumentLayoutHeight": 1080,
+    "DocumentLayoutLockOrientation": false,
+    "DocumentLayoutMaintainAspectRatio": false,
+    "DocumentLayoutOrientation": "landscape",
+    "DocumentLayoutScaleToFit": true,
+    "DocumentLayoutWidth": 1920,
+    "EnableInstrumentation": false,
+    "FileID": "00000000-0000-0000-0000-000000000005",
+    "Id": "00000000-0000-0000-0000-000000000005",
+    "LocalDatabaseReferences": "",
+    "Name": "Icons of IO - Reporting Dashboard",
+    "OriginatingVersion": "1.337",
+    "ParserErrorCount": 0,
+    "ShowStatusBar": false
+  },
+  "PublishInfo": {
+    "AppName": "Icons of IO - Reporting Dashboard",
+    "BackgroundColor": "RGBA(248, 249, 250, 1)",
+    "IconColor": "RGBA(255, 255, 255, 1)",
+    "IconName": "BarChart",
+    "LogoFileName": "",
+    "PublishDataLocally": false,
+    "PublishResourcesLocally": false,
+    "PublishTarget": "player",
+    "UserLocale": "en-US"
+  },
+  "ScreenOrder": [
+    "ReportingHome"
+  ]
+}

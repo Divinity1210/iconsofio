@@ -1,0 +1,220 @@
+{
+  "listName": "IconsOfIO_Nominations",
+  "description": "Main list for storing award nominations with all required fields and metadata",
+  "fields": [
+    {
+      "name": "Title",
+      "type": "Text",
+      "required": true,
+      "maxLength": 255,
+      "description": "Nomination title or name of nominee"
+    },
+    {
+      "name": "Category",
+      "type": "Choice",
+      "required": true,
+      "choices": [
+        "Individual Excellence",
+        "Team Achievement",
+        "Innovation Award",
+        "Leadership Award",
+        "Community Impact",
+        "Rising Star"
+      ],
+      "description": "Award category selection"
+    },
+    {
+      "name": "NomineeType",
+      "type": "Choice",
+      "required": true,
+      "choices": ["Individual", "Team"],
+      "description": "Type of nomination - individual or team"
+    },
+    {
+      "name": "NomineeName",
+      "type": "Text",
+      "required": true,
+      "maxLength": 255,
+      "description": "Full name of nominee or team name"
+    },
+    {
+      "name": "NomineeEmail",
+      "type": "Text",
+      "required": false,
+      "maxLength": 255,
+      "description": "Email address of nominee"
+    },
+    {
+      "name": "NomineeDepartment",
+      "type": "Text",
+      "required": true,
+      "maxLength": 255,
+      "description": "Department or division of nominee"
+    },
+    {
+      "name": "NominatorName",
+      "type": "Text",
+      "required": true,
+      "maxLength": 255,
+      "description": "Name of person submitting nomination"
+    },
+    {
+      "name": "NominatorEmail",
+      "type": "Text",
+      "required": true,
+      "maxLength": 255,
+      "description": "Email of nominator"
+    },
+    {
+      "name": "NominationReason",
+      "type": "Note",
+      "required": true,
+      "richText": true,
+      "description": "Detailed reason for nomination (rich text, max 2000 words)"
+    },
+    {
+      "name": "Achievements",
+      "type": "Note",
+      "required": true,
+      "richText": true,
+      "description": "Specific achievements and impact (rich text, max 1500 words)"
+    },
+    {
+      "name": "SupportingEvidence",
+      "type": "Note",
+      "required": false,
+      "richText": true,
+      "description": "Additional supporting evidence or examples"
+    },
+    {
+      "name": "AttachmentFiles",
+      "type": "Attachments",
+      "required": false,
+      "description": "Supporting documents, images, or files"
+    },
+    {
+      "name": "SubmissionDate",
+      "type": "DateTime",
+      "required": true,
+      "defaultValue": "[Today]",
+      "description": "Date and time of submission"
+    },
+    {
+      "name": "Status",
+      "type": "Choice",
+      "required": true,
+      "choices": [
+        "Submitted",
+        "Under Review",
+        "Scored",
+        "Shortlisted",
+        "Final Review",
+        "Selected",
+        "Not Selected",
+        "Withdrawn"
+      ],
+      "defaultValue": "Submitted",
+      "description": "Current status of nomination"
+    },
+    {
+      "name": "InitialScore",
+      "type": "Number",
+      "required": false,
+      "min": 1,
+      "max": 5,
+      "decimals": 1,
+      "description": "Initial scoring (1-5 scale)"
+    },
+    {
+      "name": "ReviewerScore",
+      "type": "Number",
+      "required": false,
+      "min": 1,
+      "max": 5,
+      "decimals": 1,
+      "description": "Reviewer scoring (1-5 scale)"
+    },
+    {
+      "name": "FinalScore",
+      "type": "Number",
+      "required": false,
+      "min": 1,
+      "max": 5,
+      "decimals": 1,
+      "description": "Final combined score"
+    },
+    {
+      "name": "AssignedReviewer",
+      "type": "Person",
+      "required": false,
+      "description": "Person assigned to review this nomination"
+    },
+    {
+      "name": "ReviewerComments",
+      "type": "Note",
+      "required": false,
+      "richText": true,
+      "description": "Comments from assigned reviewer"
+    },
+    {
+      "name": "AdminComments",
+      "type": "Note",
+      "required": false,
+      "richText": true,
+      "description": "Administrative comments and notes"
+    },
+    {
+      "name": "IsShortlisted",
+      "type": "Boolean",
+      "required": false,
+      "defaultValue": false,
+      "description": "Whether nomination made it to shortlist"
+    },
+    {
+      "name": "IsWinner",
+      "type": "Boolean",
+      "required": false,
+      "defaultValue": false,
+      "description": "Whether nomination was selected as winner"
+    },
+    {
+      "name": "ReviewCompletedDate",
+      "type": "DateTime",
+      "required": false,
+      "description": "Date when review was completed"
+    },
+    {
+      "name": "FinalDecisionDate",
+      "type": "DateTime",
+      "required": false,
+      "description": "Date of final decision"
+    }
+  ],
+  "views": [
+    {
+      "name": "All Nominations",
+      "isDefault": true,
+      "fields": ["Title", "Category", "NomineeName", "Status", "SubmissionDate", "FinalScore"]
+    },
+    {
+      "name": "Pending Review",
+      "filter": "Status eq 'Submitted' or Status eq 'Under Review'",
+      "fields": ["Title", "Category", "NomineeName", "SubmissionDate", "AssignedReviewer"]
+    },
+    {
+      "name": "Shortlisted",
+      "filter": "IsShortlisted eq true",
+      "fields": ["Title", "Category", "NomineeName", "FinalScore", "ReviewerComments"]
+    },
+    {
+      "name": "Winners",
+      "filter": "IsWinner eq true",
+      "fields": ["Title", "Category", "NomineeName", "FinalScore", "FinalDecisionDate"]
+    }
+  ],
+  "permissions": {
+    "submitters": ["Add", "View Own"],
+    "reviewers": ["View", "Edit Assigned"],
+    "admins": ["Full Control"]
+  }
+}

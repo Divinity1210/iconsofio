@@ -1,0 +1,15 @@
+AttachmentsScreen As screen:
+    Fill: =RGBA(255,255,255,1)
+
+    lblAttachmentsTitle As label:
+        Text: ="Attachments"
+        X: =40
+        Y: =40
+        ZIndex: =1
+
+    btnNextAttachments As button:
+        Text: ="Next"
+        OnSelect: =Navigate(ReviewScreen, ScreenTransition.Fade)
+        X: =40
+        Y: =100
+        ZIndex: =2

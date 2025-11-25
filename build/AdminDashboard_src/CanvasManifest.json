@@ -1,0 +1,44 @@
+{
+  "FormatVersion": "0.24",
+  "Header": {
+    "DocVersion": "1.345",
+    "MinVersionToLoad": "1.331",
+    "MSAppStructureVersion": "2.4.0"
+  },
+  "Properties": {
+    "AppDisplayName": "Icons of IO - Admin Dashboard",
+    "AppPreviewFlagsMap": {
+      "showclassicthemes": true
+    },
+    "Author": "Icons of IO Awards Team",
+    "BackgroundColor": "RGBA(255, 255, 255, 1)",
+    "DocumentLayoutHeight": 1080,
+    "DocumentLayoutLockOrientation": false,
+    "DocumentLayoutMaintainAspectRatio": false,
+    "DocumentLayoutOrientation": "landscape",
+    "DocumentLayoutScaleToFit": true,
+    "DocumentLayoutWidth": 1920,
+    "EnableInstrumentation": false,
+    "FileID": "00000000-0000-0000-0000-000000000002",
+    "Id": "00000000-0000-0000-0000-000000000002",
+    "LocalDatabaseReferences": "",
+    "Name": "Icons of IO - Admin Dashboard",
+    "OriginatingVersion": "1.337",
+    "ParserErrorCount": 0,
+    "ShowStatusBar": false
+  },
+  "PublishInfo": {
+    "AppName": "Icons of IO - Admin Dashboard",
+    "BackgroundColor": "RGBA(255, 255, 255, 1)",
+    "IconColor": "RGBA(255, 255, 255, 1)",
+    "IconName": "Edit",
+    "LogoFileName": "",
+    "PublishDataLocally": false,
+    "PublishResourcesLocally": false,
+    "PublishTarget": "player",
+    "UserLocale": "en-US"
+  },
+  "ScreenOrder": [
+    "AdminHome"
+  ]
+}

@@ -1,0 +1,72 @@
+name: Export Power Platform Solution
+
+on:
+  workflow_dispatch:
+    inputs:
+      solution_name:
+        description: "Dataverse solution unique name"
+        required: true
+        default: "IconsOfIOAwards"
+      managed:
+        description: "Export as managed (true/false)"
+        required: true
+        default: "false"
+
+jobs:
+  export-solution:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Enable PowerShell script execution
+        shell: pwsh
+        run: |
+          Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
+
+      - name: Install Power Platform CLI (dotnet global tool)
+        shell: pwsh
+        run: |
+          try {
+            $pacCmd = Get-Command pac -ErrorAction SilentlyContinue
+            if ($null -eq $pacCmd) {
+              dotnet tool install -g Microsoft.PowerApps.CLI
+            }
+          } catch {
+            Write-Host "CLI install attempt finished (may already be present)." -ForegroundColor Yellow
+          }
+
+      - name: Authenticate to Dataverse with Service Principal
+        shell: pwsh
+        env:
+          DATAVERSE_URL: ${{ secrets.DATAVERSE_URL }}
+          AAD_TENANT_ID: ${{ secrets.AAD_TENANT_ID }}
+          AAD_CLIENT_ID: ${{ secrets.AAD_CLIENT_ID }}
+          AAD_CLIENT_SECRET: ${{ secrets.AAD_CLIENT_SECRET }}
+        run: |
+          if (-not "$env:DATAVERSE_URL") { throw "Missing secret DATAVERSE_URL" }
+          if (-not "$env:AAD_TENANT_ID") { throw "Missing secret AAD_TENANT_ID" }
+          if (-not "$env:AAD_CLIENT_ID") { throw "Missing secret AAD_CLIENT_ID" }
+          if (-not "$env:AAD_CLIENT_SECRET") { throw "Missing secret AAD_CLIENT_SECRET" }
+
+          $pacPath = (Get-Command pac).Source
+          & $pacPath telemetry disable
+          & $pacPath auth create --url "$env:DATAVERSE_URL" --tenant "$env:AAD_TENANT_ID" --applicationId "$env:AAD_CLIENT_ID" --clientSecret "$env:AAD_CLIENT_SECRET"
+          & $pacPath env list
+
+      - name: Export solution (unmanaged by default)
+        shell: pwsh
+        run: |
+          $pacPath = (Get-Command pac).Source
+          New-Item -ItemType Directory -Force -Path build | Out-Null
+          $managed = '${{ github.event.inputs.managed }}'
+          $name = '${{ github.event.inputs.solution_name }}'
+          $zipPath = "build/$name`_v1.0.0.zip"
+          & $pacPath solution export --path "$zipPath" --name "$name" --managed ($managed -eq 'true') --includeCanvasApps true
+          Write-Host "Exported: $zipPath" -ForegroundColor Green
+
+      - name: Upload exported solution
+        uses: actions/upload-artifact@v4
+        with:
+          name: exported-solution
+          path: build/*.zip

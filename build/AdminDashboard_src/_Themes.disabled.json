@@ -1,0 +1,30 @@
+{
+  "CurrentTheme": "PowerAppsTheme",
+  "Themes": [
+    {
+      "Name": "PowerAppsTheme",
+      "Id": "00000000-0000-0000-0000-000000000100",
+      "Tokens": []
+    },
+    {
+      "Name": "PlatinumTheme",
+      "Id": "00000000-0000-0000-0000-000000000101",
+      "Tokens": []
+    },
+    {
+      "Name": "OrangeTheme",
+      "Id": "00000000-0000-0000-0000-000000000102",
+      "Tokens": []
+    },
+    {
+      "Name": "TeamsTheme",
+      "Id": "00000000-0000-0000-0000-000000000103",
+      "Tokens": []
+    },
+    {
+      "Name": "SharePointTheme",
+      "Id": "00000000-0000-0000-0000-000000000104",
+      "Tokens": []
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImportExportXml version="9.2.24021.00227" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="PowerPlatform" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SolutionManifest>
+    <UniqueName>IconsOfIOAwardsSolution</UniqueName>
+    <LocalizedNames>
+      <LocalizedName description="Icons of IO Awards - Complete Solution" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Enterprise-grade Power Apps solution for managing Icons of IO Awards process including nominations, reviews, selections, and reporting" languagecode="1033" />
+    </Descriptions>
+    <Version>1.0.0.0</Version>
+    <Managed>0</Managed>
+    <Publisher>
+      <UniqueName>IconsOfIOPublisher</UniqueName>
+      <LocalizedNames>
+        <LocalizedName description="Icons of IO Publisher" languagecode="1033" />
+      </LocalizedNames>
+      <Descriptions>
+        <Description description="Official publisher for Icons of IO Awards solutions" languagecode="1033" />
+      </Descriptions>
+      <EMailAddress>support@iconsofio.com</EMailAddress>
+      <SupportingWebsiteUrl>https://iconsofio.com</SupportingWebsiteUrl>
+      <CustomizationPrefix>iconsio</CustomizationPrefix>
+      <CustomizationOptionValuePrefix>10000</CustomizationOptionValuePrefix>
+    </Publisher>
+    <RootComponents>
+      <!-- Canvas Apps -->
+      <RootComponent type="300" schemaName="iconsio_NominationSubmissionApp" behavior="0" />
+      <RootComponent type="300" schemaName="iconsio_AdminDashboardApp" behavior="0" />
+      <RootComponent type="300" schemaName="iconsio_ReviewerInterfaceApp" behavior="0" />
+      <RootComponent type="300" schemaName="iconsio_FinalSelectionApp" behavior="0" />
+      <RootComponent type="300" schemaName="iconsio_ReportingDashboardApp" behavior="0" />
+      <!-- SharePoint Lists (if using Dataverse) -->
+      <RootComponent type="1" schemaName="iconsio_nominations" behavior="0" />
+      <RootComponent type="1" schemaName="iconsio_categories" behavior="0" />
+      <RootComponent type="1" schemaName="iconsio_reviewers" behavior="0" />
+      <!-- Security Roles -->
+      <RootComponent type="20" schemaName="iconsio_NominatorRole" behavior="0" />
+      <RootComponent type="20" schemaName="iconsio_ReviewerRole" behavior="0" />
+      <RootComponent type="20" schemaName="iconsio_AdminRole" behavior="0" />
+      <RootComponent type="20" schemaName="iconsio_LeadershipRole" behavior="0" />
+    </RootComponents>
+    <MissingDependencies />
+  </SolutionManifest>
+</ImportExportXml>

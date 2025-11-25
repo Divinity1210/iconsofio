@@ -1,0 +1,5 @@
+App:
+  Control: App
+  Properties:
+    AppDisplayName: "Icons of IO - ReviewerInterface"
+    Description: "Reviewer interface (skeleton)"

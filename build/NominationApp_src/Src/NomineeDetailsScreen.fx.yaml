@@ -1,0 +1,15 @@
+NomineeDetailsScreen As screen:
+    Fill: =RGBA(255,255,255,1)
+
+    lblNomineeDetailsTitle As label:
+        Text: =If(nomineeType = "Individual", "Individual Details", "Team Details")
+        X: =40
+        Y: =40
+        ZIndex: =1
+
+    btnNextNominee As button:
+        Text: ="Next"
+        OnSelect: =Navigate(NominatorDetailsScreen, ScreenTransition.Fade)
+        X: =40
+        Y: =100
+        ZIndex: =2

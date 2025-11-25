@@ -1,0 +1,474 @@
+{
+  "name": "IconsOfIO_NominationForm",
+  "displayName": "Icons of IO Awards - Nomination Form",
+  "description": "Responsive Power Apps form for submitting award nominations with dynamic fields",
+  "version": "1.0.0.0",
+  "screens": [
+    {
+      "name": "WelcomeScreen",
+      "displayName": "Welcome",
+      "type": "info",
+      "controls": [
+        {
+          "type": "Label",
+          "name": "lblWelcome",
+          "text": "Icons of IO Awards Nomination",
+          "fontSize": 24,
+          "fontWeight": "Bold",
+          "color": "#1f4e79"
+        },
+        {
+          "type": "Label",
+          "name": "lblDescription",
+          "text": "Thank you for taking the time to nominate someone for the Icons of IO Awards. Your nomination helps us recognize outstanding contributions and achievements within our organization.",
+          "fontSize": 14,
+          "wrap": true
+        },
+        {
+          "type": "Button",
+          "name": "btnStart",
+          "text": "Start Nomination",
+          "onSelect": "Navigate(CategoryScreen, ScreenTransition.Fade)",
+          "backgroundColor": "#0078d4",
+          "color": "White"
+        }
+      ]
+    },
+    {
+      "name": "CategoryScreen",
+      "displayName": "Category Selection",
+      "type": "form",
+      "dataSource": "IconsOfIO_Categories",
+      "controls": [
+        {
+          "type": "Label",
+          "name": "lblCategoryTitle",
+          "text": "Select Award Category",
+          "fontSize": 20,
+          "fontWeight": "Semibold"
+        },
+        {
+          "type": "Dropdown",
+          "name": "ddCategory",
+          "displayName": "Award Category",
+          "required": true,
+          "items": "Filter(IconsOfIO_Categories, IsActive = true)",
+          "displayFields": ["Title"],
+          "searchFields": ["Title", "Description"],
+          "onSelectionChange": "Set(selectedCategory, Self.Selected); Navigate(NomineeTypeScreen, ScreenTransition.Fade)"
+        },
+        {
+          "type": "Label",
+          "name": "lblCategoryDescription",
+          "text": "If(IsBlank(ddCategory.Selected), \"Please select a category to see its description\", ddCategory.Selected.Description)",
+          "fontSize": 12,
+          "color": "#666666",
+          "wrap": true
+        },
+        {
+          "type": "Label",
+          "name": "lblCategoryCriteria",
+          "text": "If(IsBlank(ddCategory.Selected), \"\", \"Evaluation Criteria: \" & ddCategory.Selected.Criteria)",
+          "fontSize": 12,
+          "color": "#666666",
+          "wrap": true,
+          "visible": "!IsBlank(ddCategory.Selected)"
+        }
+      ]
+    },
+    {
+      "name": "NomineeTypeScreen",
+      "displayName": "Nominee Type",
+      "type": "form",
+      "controls": [
+        {
+          "type": "Label",
+          "name": "lblNomineeTypeTitle",
+          "text": "Nomination Type",
+          "fontSize": 20,
+          "fontWeight": "Semibold"
+        },
+        {
+          "type": "Radio",
+          "name": "radNomineeType",
+          "displayName": "Is this nomination for:",
+          "required": true,
+          "items": ["Individual", "Team"],
+          "default": "Individual",
+          "onSelectionChange": "Set(nomineeType, Self.Selected.Value); Navigate(NomineeDetailsScreen, ScreenTransition.Fade)"
+        }
+      ]
+    },
+    {
+      "name": "NomineeDetailsScreen",
+      "displayName": "Nominee Details",
+      "type": "form",
+      "controls": [
+        {
+          "type": "Label",
+          "name": "lblNomineeDetailsTitle",
+          "text": "If(nomineeType = \"Individual\", \"Individual Details\", \"Team Details\")",
+          "fontSize": 20,
+          "fontWeight": "Semibold"
+        },
+        {
+          "type": "TextInput",
+          "name": "txtNomineeName",
+          "displayName": "If(nomineeType = \"Individual\", \"Nominee Full Name\", \"Team Name\")",
+          "required": true,
+          "maxLength": 255,
+          "placeholder": "If(nomineeType = \"Individual\", \"Enter the full name of the nominee\", \"Enter the team name\")"
+        },
+        {
+          "type": "TextInput",
+          "name": "txtNomineeEmail",
+          "displayName": "If(nomineeType = \"Individual\", \"Nominee Email\", \"Team Lead Email\")",
+          "required": false,
+          "format": "Email",
+          "placeholder": "email@company.com"
+        },
+        {
+          "type": "TextInput",
+          "name": "txtNomineeDepartment",
+          "displayName": "Department/Division",
+          "required": true,
+          "maxLength": 255,
+          "placeholder": "Enter department or division"
+        },
+        {
+          "type": "TextInput",
+          "name": "txtTeamMembers",
+          "displayName": "Team Members",
+          "required": "nomineeType = \"Team\"",
+          "visible": "nomineeType = \"Team\"",
+          "mode": "Multiline",
+          "maxLength": 1000,
+          "placeholder": "List all team members (one per line)"
+        }
+      ]
+    },
+    {
+      "name": "NominatorDetailsScreen",
+      "displayName": "Nominator Details",
+      "type": "form",
+      "controls": [
+        {
+          "type": "Label",
+          "name": "lblNominatorTitle",
+          "text": "Your Details",
+          "fontSize": 20,
+          "fontWeight": "Semibold"
+        },
+        {
+          "type": "TextInput",
+          "name": "txtNominatorName",
+          "displayName": "Your Full Name",
+          "required": true,
+          "maxLength": 255,
+          "default": "User().FullName",
+          "placeholder": "Enter your full name"
+        },
+        {
+          "type": "TextInput",
+          "name": "txtNominatorEmail",
+          "displayName": "Your Email Address",
+          "required": true,
+          "format": "Email",
+          "default": "User().Email",
+          "placeholder": "your.email@company.com"
+        },
+        {
+          "type": "TextInput",
+          "name": "txtNominatorDepartment",
+          "displayName": "Your Department",
+          "required": true,
+          "maxLength": 255,
+          "placeholder": "Enter your department"
+        }
+      ]
+    },
+    {
+      "name": "NominationDetailsScreen",
+      "displayName": "Nomination Details",
+      "type": "form",
+      "controls": [
+        {
+          "type": "Label",
+          "name": "lblNominationTitle",
+          "text": "Nomination Details",
+          "fontSize": 20,
+          "fontWeight": "Semibold"
+        },
+        {
+          "type": "TextInput",
+          "name": "txtNominationTitle",
+          "displayName": "Nomination Title",
+          "required": true,
+          "maxLength": 255,
+          "placeholder": "Provide a brief, descriptive title for this nomination"
+        },
+        {
+          "type": "RichTextEditor",
+          "name": "rtxtNominationReason",
+          "displayName": "Reason for Nomination",
+          "required": true,
+          "maxLength": 4000,
+          "placeholder": "Explain why this person/team deserves this award. Be specific about their contributions and impact. (Maximum 2000 words)",
+          "height": 200
+        },
+        {
+          "type": "RichTextEditor",
+          "name": "rtxtAchievements",
+          "displayName": "Specific Achievements",
+          "required": true,
+          "maxLength": 3000,
+          "placeholder": "Detail the specific achievements, projects, or contributions that make this nomination outstanding. Include measurable results where possible. (Maximum 1500 words)",
+          "height": 200
+        },
+        {
+          "type": "RichTextEditor",
+          "name": "rtxtSupportingEvidence",
+          "displayName": "Supporting Evidence (Optional)",
+          "required": false,
+          "maxLength": 2000,
+          "placeholder": "Provide any additional supporting evidence, examples, or context that strengthens this nomination.",
+          "height": 150
+        }
+      ]
+    },
+    {
+      "name": "DynamicFieldsScreen",
+      "displayName": "Additional Information",
+      "type": "form",
+      "visible": "!IsBlank(selectedCategory.RequiredFields)",
+      "controls": [
+        {
+          "type": "Label",
+          "name": "lblDynamicTitle",
+          "text": "Additional Required Information",
+          "fontSize": 20,
+          "fontWeight": "Semibold"
+        },
+        {
+          "type": "TextInput",
+          "name": "txtProjectTimeline",
+          "displayName": "Project Timeline",
+          "required": "\"Project Timeline\" in selectedCategory.RequiredFields",
+          "visible": "\"Project Timeline\" in selectedCategory.RequiredFields",
+          "placeholder": "Provide project start and end dates, key milestones"
+        },
+        {
+          "type": "TextInput",
+          "name": "txtBudgetImpact",
+          "displayName": "Budget Impact",
+          "required": "\"Budget Impact\" in selectedCategory.RequiredFields",
+          "visible": "\"Budget Impact\" in selectedCategory.RequiredFields",
+          "placeholder": "Describe financial impact, cost savings, or budget efficiency"
+        },
+        {
+          "type": "RichTextEditor",
+          "name": "rtxtMetricsKPIs",
+          "displayName": "Metrics and KPIs",
+          "required": "\"Metrics/KPIs\" in selectedCategory.RequiredFields",
+          "visible": "\"Metrics/KPIs\" in selectedCategory.RequiredFields",
+          "placeholder": "Provide specific metrics, KPIs, or measurable outcomes",
+          "height": 120
+        },
+        {
+          "type": "RichTextEditor",
+          "name": "rtxtStakeholderFeedback",
+          "displayName": "Stakeholder Feedback",
+          "required": "\"Stakeholder Feedback\" in selectedCategory.RequiredFields",
+          "visible": "\"Stakeholder Feedback\" in selectedCategory.RequiredFields",
+          "placeholder": "Include feedback from colleagues, clients, or other stakeholders",
+          "height": 120
+        },
+        {
+          "type": "RichTextEditor",
+          "name": "rtxtInnovationDetails",
+          "displayName": "Innovation Details",
+          "required": "\"Innovation Details\" in selectedCategory.RequiredFields",
+          "visible": "\"Innovation Details\" in selectedCategory.RequiredFields",
+          "placeholder": "Describe the innovative aspects, creative solutions, or new approaches",
+          "height": 120
+        },
+        {
+          "type": "RichTextEditor",
+          "name": "rtxtLeadershipExamples",
+          "displayName": "Leadership Examples",
+          "required": "\"Leadership Examples\" in selectedCategory.RequiredFields",
+          "visible": "\"Leadership Examples\" in selectedCategory.RequiredFields",
+          "placeholder": "Provide specific examples of leadership behaviors and impact",
+          "height": 120
+        }
+      ]
+    },
+    {
+      "name": "AttachmentsScreen",
+      "displayName": "Supporting Documents",
+      "type": "form",
+      "controls": [
+        {
+          "type": "Label",
+          "name": "lblAttachmentsTitle",
+          "text": "Supporting Documents (Optional)",
+          "fontSize": 20,
+          "fontWeight": "Semibold"
+        },
+        {
+          "type": "Label",
+          "name": "lblAttachmentsInfo",
+          "text": "You may attach supporting documents such as performance reviews, project reports, testimonials, or other relevant files. Maximum 5 files, 10MB each.",
+          "fontSize": 12,
+          "color": "#666666",
+          "wrap": true
+        },
+        {
+          "type": "Attachments",
+          "name": "attSupportingDocs",
+          "displayName": "Attach Files",
+          "maxFiles": 5,
+          "maxFileSize": 10485760,
+          "allowedFileTypes": [".pdf", ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx", ".jpg", ".jpeg", ".png", ".gif"]
+        }
+      ]
+    },
+    {
+      "name": "ReviewScreen",
+      "displayName": "Review & Submit",
+      "type": "review",
+      "controls": [
+        {
+          "type": "Label",
+          "name": "lblReviewTitle",
+          "text": "Review Your Nomination",
+          "fontSize": 20,
+          "fontWeight": "Semibold"
+        },
+        {
+          "type": "Label",
+          "name": "lblReviewInstructions",
+          "text": "Please review all information below before submitting. Once submitted, you will not be able to edit this nomination.",
+          "fontSize": 12,
+          "color": "#d13438",
+          "wrap": true
+        },
+        {
+          "type": "DisplayForm",
+          "name": "frmReview",
+          "dataSource": "formData",
+          "fields": [
+            "Category",
+            "NomineeType",
+            "NomineeName",
+            "NomineeEmail",
+            "NomineeDepartment",
+            "NominatorName",
+            "NominatorEmail",
+            "NominationTitle",
+            "NominationReason",
+            "Achievements"
+          ]
+        },
+        {
+          "type": "Checkbox",
+          "name": "chkConfirmation",
+          "text": "I confirm that the information provided is accurate and complete to the best of my knowledge.",
+          "required": true
+        },
+        {
+          "type": "Button",
+          "name": "btnSubmit",
+          "text": "Submit Nomination",
+          "onSelect": "SubmitForm(); Navigate(ConfirmationScreen, ScreenTransition.Fade)",
+          "backgroundColor": "#107c10",
+          "color": "White",
+          "disabled": "!chkConfirmation.Value"
+        },
+        {
+          "type": "Button",
+          "name": "btnBack",
+          "text": "Back to Edit",
+          "onSelect": "Back()",
+          "backgroundColor": "Transparent",
+          "color": "#0078d4"
+        }
+      ]
+    },
+    {
+      "name": "ConfirmationScreen",
+      "displayName": "Confirmation",
+      "type": "confirmation",
+      "controls": [
+        {
+          "type": "Icon",
+          "name": "icnSuccess",
+          "icon": "CheckmarkCircle",
+          "color": "#107c10",
+          "size": 48
+        },
+        {
+          "type": "Label",
+          "name": "lblSuccessTitle",
+          "text": "Nomination Submitted Successfully!",
+          "fontSize": 24,
+          "fontWeight": "Bold",
+          "color": "#107c10"
+        },
+        {
+          "type": "Label",
+          "name": "lblSuccessMessage",
+          "text": "Thank you for your nomination. Your submission has been received and will be reviewed by our evaluation team. You will receive email confirmation shortly.",
+          "fontSize": 14,
+          "wrap": true
+        },
+        {
+          "type": "Label",
+          "name": "lblReferenceNumber",
+          "text": "Reference Number: [Dynamic]",
+          "fontSize": 12,
+          "fontWeight": "Semibold"
+        },
+        {
+          "type": "Button",
+          "name": "btnNewNomination",
+          "text": "Submit Another Nomination",
+          "onSelect": "ResetForm(); Navigate(WelcomeScreen, ScreenTransition.Fade)",
+          "backgroundColor": "#0078d4",
+          "color": "White"
+        },
+        {
+          "type": "Button",
+          "name": "btnClose",
+          "text": "Close",
+          "onSelect": "Exit()",
+          "backgroundColor": "Transparent",
+          "color": "#0078d4"
+        }
+      ]
+    }
+  ],
+  "formulas": {
+    "OnStart": "Set(selectedCategory, Blank()); Set(nomineeType, \"Individual\"); Set(formData, Blank())",
+    "SubmitForm": "Patch(IconsOfIO_Nominations, Defaults(IconsOfIO_Nominations), {Title: txtNominationTitle.Text, Category: ddCategory.Selected.Title, NomineeType: radNomineeType.Selected.Value, NomineeName: txtNomineeName.Text, NomineeEmail: txtNomineeEmail.Text, NomineeDepartment: txtNomineeDepartment.Text, NominatorName: txtNominatorName.Text, NominatorEmail: txtNominatorEmail.Text, NominationReason: rtxtNominationReason.HtmlText, Achievements: rtxtAchievements.HtmlText, SupportingEvidence: rtxtSupportingEvidence.HtmlText, SubmissionDate: Now(), Status: \"Submitted\"})",
+    "ResetForm": "Reset(txtNominationTitle); Reset(ddCategory); Reset(radNomineeType); Reset(txtNomineeName); Reset(txtNomineeEmail); Reset(txtNomineeDepartment); Reset(txtNominatorName); Reset(txtNominatorEmail); Reset(rtxtNominationReason); Reset(rtxtAchievements); Reset(rtxtSupportingEvidence); Reset(chkConfirmation)"
+  },
+  "validation": {
+    "wordLimits": {
+      "NominationReason": 2000,
+      "Achievements": 1500,
+      "SupportingEvidence": 1000
+    },
+    "requiredFields": [
+      "ddCategory",
+      "radNomineeType",
+      "txtNomineeName",
+      "txtNomineeDepartment",
+      "txtNominatorName",
+      "txtNominatorEmail",
+      "txtNominationTitle",
+      "rtxtNominationReason",
+      "rtxtAchievements"
+    ]
+  }
+}

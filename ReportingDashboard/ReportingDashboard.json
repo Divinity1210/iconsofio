@@ -1,0 +1,640 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/pva/v1.0/pva.schema.json",
+  "properties": {
+    "connectionReferences": {
+      "shared_sharepointonline": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "iio_sharepoint"
+        },
+        "api": {
+          "name": "shared_sharepointonline"
+        }
+      }
+    },
+    "definition": {
+      "appVersion": "1.0.0.0",
+      "screens": {
+        "ReportingDashboard": {
+          "Name": "ReportingDashboard",
+          "TemplateName": "",
+          "Fill": "RGBA(248, 249, 250, 1)",
+          "controls": [
+            {
+              "Name": "HeaderContainer",
+              "ControlType": "groupControl",
+              "variant": "verticalAutoLayoutContainer",
+              "X": 0,
+              "Y": 0,
+              "Width": 1920,
+              "Height": 120,
+              "Fill": "RGBA(0, 120, 212, 1)",
+              "controls": [
+                {
+                  "Name": "AppTitle",
+                  "ControlType": "labelControl",
+                  "Text": "Icons of IO Awards - Analytics Dashboard",
+                  "X": 40,
+                  "Y": 30,
+                  "Width": 600,
+                  "Height": 60,
+                  "Color": "RGBA(255, 255, 255, 1)",
+                  "Font": "'Segoe UI', sans-serif",
+                  "FontWeight": "Bold",
+                  "Size": 28
+                },
+                {
+                  "Name": "RefreshButton",
+                  "ControlType": "buttonControl",
+                  "Text": "Refresh Data",
+                  "X": 1650,
+                  "Y": 35,
+                  "Width": 200,
+                  "Height": 50,
+                  "Fill": "RGBA(255, 255, 255, 1)",
+                  "Color": "RGBA(0, 120, 212, 1)",
+                  "OnSelect": "Refresh data from SharePoint"
+                }
+              ]
+            },
+            {
+              "Name": "MetricsContainer",
+              "ControlType": "groupControl",
+              "variant": "horizontalAutoLayoutContainer",
+              "X": 40,
+              "Y": 140,
+              "Width": 1840,
+              "Height": 200,
+              "controls": [
+                {
+                  "Name": "TotalNominationsCard",
+                  "ControlType": "groupControl",
+                  "variant": "verticalAutoLayoutContainer",
+                  "Width": 280,
+                  "Height": 180,
+                  "Fill": "RGBA(255, 255, 255, 1)",
+                  "BorderColor": "RGBA(225, 223, 221, 1)",
+                  "BorderThickness": 1,
+                  "controls": [
+                    {
+                      "Name": "TotalNominationsValue",
+                      "ControlType": "labelControl",
+                      "Text": "[Dynamic Total Count]",
+                      "Width": 260,
+                      "Height": 80,
+                      "Color": "RGBA(0, 120, 212, 1)",
+                      "Font": "'Segoe UI', sans-serif",
+                      "FontWeight": "Bold",
+                      "Size": 48,
+                      "Align": "Center"
+                    },
+                    {
+                      "Name": "TotalNominationsLabel",
+                      "ControlType": "labelControl",
+                      "Text": "Total Nominations",
+                      "Width": 260,
+                      "Height": 40,
+                      "Color": "RGBA(50, 49, 48, 1)",
+                      "Font": "'Segoe UI', sans-serif",
+                      "Size": 16,
+                      "Align": "Center"
+                    }
+                  ]
+                },
+                {
+                  "Name": "PendingReviewCard",
+                  "ControlType": "groupControl",
+                  "variant": "verticalAutoLayoutContainer",
+                  "Width": 280,
+                  "Height": 180,
+                  "Fill": "RGBA(255, 255, 255, 1)",
+                  "BorderColor": "RGBA(225, 223, 221, 1)",
+                  "BorderThickness": 1,
+                  "controls": [
+                    {
+                      "Name": "PendingReviewValue",
+                      "ControlType": "labelControl",
+                      "Text": "[Dynamic Pending Count]",
+                      "Width": 260,
+                      "Height": 80,
+                      "Color": "RGBA(255, 140, 0, 1)",
+                      "Font": "'Segoe UI', sans-serif",
+                      "FontWeight": "Bold",
+                      "Size": 48,
+                      "Align": "Center"
+                    },
+                    {
+                      "Name": "PendingReviewLabel",
+                      "ControlType": "labelControl",
+                      "Text": "Pending Review",
+                      "Width": 260,
+                      "Height": 40,
+                      "Color": "RGBA(50, 49, 48, 1)",
+                      "Font": "'Segoe UI', sans-serif",
+                      "Size": 16,
+                      "Align": "Center"
+                    }
+                  ]
+                },
+                {
+                  "Name": "CompletedReviewCard",
+                  "ControlType": "groupControl",
+                  "variant": "verticalAutoLayoutContainer",
+                  "Width": 280,
+                  "Height": 180,
+                  "Fill": "RGBA(255, 255, 255, 1)",
+                  "BorderColor": "RGBA(225, 223, 221, 1)",
+                  "BorderThickness": 1,
+                  "controls": [
+                    {
+                      "Name": "CompletedReviewValue",
+                      "ControlType": "labelControl",
+                      "Text": "[Dynamic Completed Count]",
+                      "Width": 260,
+                      "Height": 80,
+                      "Color": "RGBA(16, 124, 16, 1)",
+                      "Font": "'Segoe UI', sans-serif",
+                      "FontWeight": "Bold",
+                      "Size": 48,
+                      "Align": "Center"
+                    },
+                    {
+                      "Name": "CompletedReviewLabel",
+                      "ControlType": "labelControl",
+                      "Text": "Completed Reviews",
+                      "Width": 260,
+                      "Height": 40,
+                      "Color": "RGBA(50, 49, 48, 1)",
+                      "Font": "'Segoe UI', sans-serif",
+                      "Size": 16,
+                      "Align": "Center"
+                    }
+                  ]
+                },
+                {
+                  "Name": "ShortlistedCard",
+                  "ControlType": "groupControl",
+                  "variant": "verticalAutoLayoutContainer",
+                  "Width": 280,
+                  "Height": 180,
+                  "Fill": "RGBA(255, 255, 255, 1)",
+                  "BorderColor": "RGBA(225, 223, 221, 1)",
+                  "BorderThickness": 1,
+                  "controls": [
+                    {
+                      "Name": "ShortlistedValue",
+                      "ControlType": "labelControl",
+                      "Text": "[Dynamic Shortlisted Count]",
+                      "Width": 260,
+                      "Height": 80,
+                      "Color": "RGBA(102, 45, 145, 1)",
+                      "Font": "'Segoe UI', sans-serif",
+                      "FontWeight": "Bold",
+                      "Size": 48,
+                      "Align": "Center"
+                    },
+                    {
+                      "Name": "ShortlistedLabel",
+                      "ControlType": "labelControl",
+                      "Text": "Shortlisted",
+                      "Width": 260,
+                      "Height": 40,
+                      "Color": "RGBA(50, 49, 48, 1)",
+                      "Font": "'Segoe UI', sans-serif",
+                      "Size": 16,
+                      "Align": "Center"
+                    }
+                  ]
+                },
+                {
+                  "Name": "WinnersCard",
+                  "ControlType": "groupControl",
+                  "variant": "verticalAutoLayoutContainer",
+                  "Width": 280,
+                  "Height": 180,
+                  "Fill": "RGBA(255, 255, 255, 1)",
+                  "BorderColor": "RGBA(225, 223, 221, 1)",
+                  "BorderThickness": 1,
+                  "controls": [
+                    {
+                      "Name": "WinnersValue",
+                      "ControlType": "labelControl",
+                      "Text": "[Dynamic Winners Count]",
+                      "Width": 260,
+                      "Height": 80,
+                      "Color": "RGBA(218, 165, 32, 1)",
+                      "Font": "'Segoe UI', sans-serif",
+                      "FontWeight": "Bold",
+                      "Size": 48,
+                      "Align": "Center"
+                    },
+                    {
+                      "Name": "WinnersLabel",
+                      "ControlType": "labelControl",
+                      "Text": "Winners Selected",
+                      "Width": 260,
+                      "Height": 40,
+                      "Color": "RGBA(50, 49, 48, 1)",
+                      "Font": "'Segoe UI', sans-serif",
+                      "Size": 16,
+                      "Align": "Center"
+                    }
+                  ]
+                },
+                {
+                  "Name": "AvgScoreCard",
+                  "ControlType": "groupControl",
+                  "variant": "verticalAutoLayoutContainer",
+                  "Width": 280,
+                  "Height": 180,
+                  "Fill": "RGBA(255, 255, 255, 1)",
+                  "BorderColor": "RGBA(225, 223, 221, 1)",
+                  "BorderThickness": 1,
+                  "controls": [
+                    {
+                      "Name": "AvgScoreValue",
+                      "ControlType": "labelControl",
+                      "Text": "[Dynamic Average Score]",
+                      "Width": 260,
+                      "Height": 80,
+                      "Color": "RGBA(0, 120, 212, 1)",
+                      "Font": "'Segoe UI', sans-serif",
+                      "FontWeight": "Bold",
+                      "Size": 48,
+                      "Align": "Center"
+                    },
+                    {
+                      "Name": "AvgScoreLabel",
+                      "ControlType": "labelControl",
+                      "Text": "Average Score",
+                      "Width": 260,
+                      "Height": 40,
+                      "Color": "RGBA(50, 49, 48, 1)",
+                      "Font": "'Segoe UI', sans-serif",
+                      "Size": 16,
+                      "Align": "Center"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Name": "ChartsContainer",
+              "ControlType": "groupControl",
+              "variant": "horizontalAutoLayoutContainer",
+              "X": 40,
+              "Y": 360,
+              "Width": 1840,
+              "Height": 400,
+              "controls": [
+                {
+                  "Name": "CategoryBreakdownChart",
+                  "ControlType": "groupControl",
+                  "variant": "verticalAutoLayoutContainer",
+                  "Width": 600,
+                  "Height": 380,
+                  "Fill": "RGBA(255, 255, 255, 1)",
+                  "BorderColor": "RGBA(225, 223, 221, 1)",
+                  "BorderThickness": 1,
+                  "controls": [
+                    {
+                      "Name": "CategoryChartTitle",
+                      "ControlType": "labelControl",
+                      "Text": "Nominations by Category",
+                      "Width": 580,
+                      "Height": 40,
+                      "Color": "RGBA(50, 49, 48, 1)",
+                      "Font": "'Segoe UI', sans-serif",
+                      "FontWeight": "Bold",
+                      "Size": 18,
+                      "Align": "Center"
+                    },
+                    {
+                      "Name": "CategoryChart",
+                      "ControlType": "chartControl",
+                      "Width": 580,
+                      "Height": 320,
+                      "ChartType": "PieChart",
+                      "Items": "[Dynamic Category Data]",
+                      "SeriesAxisLabel": "Category",
+                      "NumberAxisLabel": "Count"
+                    }
+                  ]
+                },
+                {
+                  "Name": "StatusProgressChart",
+                  "ControlType": "groupControl",
+                  "variant": "verticalAutoLayoutContainer",
+                  "Width": 600,
+                  "Height": 380,
+                  "Fill": "RGBA(255, 255, 255, 1)",
+                  "BorderColor": "RGBA(225, 223, 221, 1)",
+                  "BorderThickness": 1,
+                  "controls": [
+                    {
+                      "Name": "StatusChartTitle",
+                      "ControlType": "labelControl",
+                      "Text": "Review Progress by Status",
+                      "Width": 580,
+                      "Height": 40,
+                      "Color": "RGBA(50, 49, 48, 1)",
+                      "Font": "'Segoe UI', sans-serif",
+                      "FontWeight": "Bold",
+                      "Size": 18,
+                      "Align": "Center"
+                    },
+                    {
+                      "Name": "StatusChart",
+                      "ControlType": "chartControl",
+                      "Width": 580,
+                      "Height": 320,
+                      "ChartType": "BarChart",
+                      "Items": "[Dynamic Status Data]",
+                      "SeriesAxisLabel": "Status",
+                      "NumberAxisLabel": "Count"
+                    }
+                  ]
+                },
+                {
+                  "Name": "ScoreDistributionChart",
+                  "ControlType": "groupControl",
+                  "variant": "verticalAutoLayoutContainer",
+                  "Width": 600,
+                  "Height": 380,
+                  "Fill": "RGBA(255, 255, 255, 1)",
+                  "BorderColor": "RGBA(225, 223, 221, 1)",
+                  "BorderThickness": 1,
+                  "controls": [
+                    {
+                      "Name": "ScoreChartTitle",
+                      "ControlType": "labelControl",
+                      "Text": "Score Distribution",
+                      "Width": 580,
+                      "Height": 40,
+                      "Color": "RGBA(50, 49, 48, 1)",
+                      "Font": "'Segoe UI', sans-serif",
+                      "FontWeight": "Bold",
+                      "Size": 18,
+                      "Align": "Center"
+                    },
+                    {
+                      "Name": "ScoreChart",
+                      "ControlType": "chartControl",
+                      "Width": 580,
+                      "Height": 320,
+                      "ChartType": "ColumnChart",
+                      "Items": "[Dynamic Score Distribution Data]",
+                      "SeriesAxisLabel": "Score Range",
+                      "NumberAxisLabel": "Count"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Name": "ReviewerProgressContainer",
+              "ControlType": "groupControl",
+              "variant": "verticalAutoLayoutContainer",
+              "X": 40,
+              "Y": 780,
+              "Width": 900,
+              "Height": 280,
+              "Fill": "RGBA(255, 255, 255, 1)",
+              "BorderColor": "RGBA(225, 223, 221, 1)",
+              "BorderThickness": 1,
+              "controls": [
+                {
+                  "Name": "ReviewerProgressTitle",
+                  "ControlType": "labelControl",
+                  "Text": "Reviewer Progress",
+                  "Width": 880,
+                  "Height": 40,
+                  "Color": "RGBA(50, 49, 48, 1)",
+                  "Font": "'Segoe UI', sans-serif",
+                  "FontWeight": "Bold",
+                  "Size": 18,
+                  "Align": "Center"
+                },
+                {
+                  "Name": "ReviewerProgressGallery",
+                  "ControlType": "galleryControl",
+                  "Width": 880,
+                  "Height": 220,
+                  "Items": "[Dynamic Reviewer Progress Data]",
+                  "TemplateSize": 60,
+                  "controls": [
+                    {
+                      "Name": "ReviewerName",
+                      "ControlType": "labelControl",
+                      "Text": "[Dynamic Reviewer Name]",
+                      "X": 20,
+                      "Y": 10,
+                      "Width": 200,
+                      "Height": 40,
+                      "Color": "RGBA(50, 49, 48, 1)",
+                      "Font": "'Segoe UI', sans-serif",
+                      "Size": 14
+                    },
+                    {
+                      "Name": "AssignedCount",
+                      "ControlType": "labelControl",
+                      "Text": "Assigned: [Dynamic Count]",
+                      "X": 240,
+                      "Y": 10,
+                      "Width": 120,
+                      "Height": 40,
+                      "Color": "RGBA(50, 49, 48, 1)",
+                      "Font": "'Segoe UI', sans-serif",
+                      "Size": 12
+                    },
+                    {
+                      "Name": "CompletedCount",
+                      "ControlType": "labelControl",
+                      "Text": "Completed: [Dynamic Count]",
+                      "X": 380,
+                      "Y": 10,
+                      "Width": 120,
+                      "Height": 40,
+                      "Color": "RGBA(16, 124, 16, 1)",
+                      "Font": "'Segoe UI', sans-serif",
+                      "Size": 12
+                    },
+                    {
+                      "Name": "ProgressBar",
+                      "ControlType": "rectangleControl",
+                      "X": 520,
+                      "Y": 20,
+                      "Width": 200,
+                      "Height": 20,
+                      "Fill": "RGBA(225, 223, 221, 1)",
+                      "controls": [
+                        {
+                          "Name": "ProgressFill",
+                          "ControlType": "rectangleControl",
+                          "X": 0,
+                          "Y": 0,
+                          "Width": "[Dynamic Progress Width]",
+                          "Height": 20,
+                          "Fill": "RGBA(16, 124, 16, 1)"
+                        }
+                      ]
+                    },
+                    {
+                      "Name": "ProgressPercentage",
+                      "ControlType": "labelControl",
+                      "Text": "[Dynamic Progress %]",
+                      "X": 740,
+                      "Y": 10,
+                      "Width": 80,
+                      "Height": 40,
+                      "Color": "RGBA(50, 49, 48, 1)",
+                      "Font": "'Segoe UI', sans-serif",
+                      "Size": 12,
+                      "Align": "Center"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Name": "ExportContainer",
+              "ControlType": "groupControl",
+              "variant": "verticalAutoLayoutContainer",
+              "X": 960,
+              "Y": 780,
+              "Width": 920,
+              "Height": 280,
+              "Fill": "RGBA(255, 255, 255, 1)",
+              "BorderColor": "RGBA(225, 223, 221, 1)",
+              "BorderThickness": 1,
+              "controls": [
+                {
+                  "Name": "ExportTitle",
+                  "ControlType": "labelControl",
+                  "Text": "Export & Reports",
+                  "Width": 900,
+                  "Height": 40,
+                  "Color": "RGBA(50, 49, 48, 1)",
+                  "Font": "'Segoe UI', sans-serif",
+                  "FontWeight": "Bold",
+                  "Size": 18,
+                  "Align": "Center"
+                },
+                {
+                  "Name": "ExportButtonsContainer",
+                  "ControlType": "groupControl",
+                  "variant": "horizontalAutoLayoutContainer",
+                  "Width": 900,
+                  "Height": 220,
+                  "controls": [
+                    {
+                      "Name": "ExportAllButton",
+                      "ControlType": "buttonControl",
+                      "Text": "Export All Nominations",
+                      "Width": 200,
+                      "Height": 50,
+                      "Fill": "RGBA(0, 120, 212, 1)",
+                      "Color": "RGBA(255, 255, 255, 1)",
+                      "OnSelect": "Export all nominations to Excel"
+                    },
+                    {
+                      "Name": "ExportShortlistButton",
+                      "ControlType": "buttonControl",
+                      "Text": "Export Shortlist",
+                      "Width": 200,
+                      "Height": 50,
+                      "Fill": "RGBA(102, 45, 145, 1)",
+                      "Color": "RGBA(255, 255, 255, 1)",
+                      "OnSelect": "Export shortlisted nominations to Excel"
+                    },
+                    {
+                      "Name": "ExportWinnersButton",
+                      "ControlType": "buttonControl",
+                      "Text": "Export Winners",
+                      "Width": 200,
+                      "Height": 50,
+                      "Fill": "RGBA(218, 165, 32, 1)",
+                      "Color": "RGBA(255, 255, 255, 1)",
+                      "OnSelect": "Export winners to Excel"
+                    },
+                    {
+                      "Name": "GenerateReportButton",
+                      "ControlType": "buttonControl",
+                      "Text": "Generate Summary Report",
+                      "Width": 200,
+                      "Height": 50,
+                      "Fill": "RGBA(16, 124, 16, 1)",
+                      "Color": "RGBA(255, 255, 255, 1)",
+                      "OnSelect": "Generate comprehensive PDF report"
+                    }
+                  ]
+                },
+                {
+                  "Name": "FilterContainer",
+                  "ControlType": "groupControl",
+                  "variant": "horizontalAutoLayoutContainer",
+                  "Width": 900,
+                  "Height": 80,
+                  "controls": [
+                    {
+                      "Name": "CategoryFilterLabel",
+                      "ControlType": "labelControl",
+                      "Text": "Filter by Category:",
+                      "Width": 150,
+                      "Height": 40,
+                      "Color": "RGBA(50, 49, 48, 1)",
+                      "Font": "'Segoe UI', sans-serif",
+                      "Size": 14
+                    },
+                    {
+                      "Name": "CategoryFilterDropdown",
+                      "ControlType": "dropdownControl",
+                      "Width": 200,
+                      "Height": 40,
+                      "Items": "[Dynamic Category List]",
+                      "DefaultSelectedItems": "All Categories"
+                    },
+                    {
+                      "Name": "DateRangeLabel",
+                      "ControlType": "labelControl",
+                      "Text": "Date Range:",
+                      "Width": 100,
+                      "Height": 40,
+                      "Color": "RGBA(50, 49, 48, 1)",
+                      "Font": "'Segoe UI', sans-serif",
+                      "Size": 14
+                    },
+                    {
+                      "Name": "StartDatePicker",
+                      "ControlType": "datePickerControl",
+                      "Width": 150,
+                      "Height": 40,
+                      "DefaultDate": "[Dynamic Start Date]"
+                    },
+                    {
+                      "Name": "EndDatePicker",
+                      "ControlType": "datePickerControl",
+                      "Width": 150,
+                      "Height": 40,
+                      "DefaultDate": "[Dynamic End Date]"
+                    },
+                    {
+                      "Name": "ApplyFiltersButton",
+                      "ControlType": "buttonControl",
+                      "Text": "Apply Filters",
+                      "Width": 120,
+                      "Height": 40,
+                      "Fill": "RGBA(0, 120, 212, 1)",
+                      "Color": "RGBA(255, 255, 255, 1)",
+                      "OnSelect": "Apply selected filters to data"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}

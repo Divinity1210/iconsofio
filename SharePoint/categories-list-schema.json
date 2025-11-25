@@ -1,0 +1,151 @@
+{
+  "listName": "IconsOfIO_Categories",
+  "description": "Configuration list for award categories and their criteria",
+  "fields": [
+    {
+      "name": "Title",
+      "type": "Text",
+      "required": true,
+      "maxLength": 255,
+      "description": "Category name"
+    },
+    {
+      "name": "Description",
+      "type": "Note",
+      "required": true,
+      "richText": true,
+      "description": "Detailed description of the category"
+    },
+    {
+      "name": "Criteria",
+      "type": "Note",
+      "required": true,
+      "richText": true,
+      "description": "Evaluation criteria for this category"
+    },
+    {
+      "name": "IsActive",
+      "type": "Boolean",
+      "required": true,
+      "defaultValue": true,
+      "description": "Whether category is currently active for nominations"
+    },
+    {
+      "name": "SortOrder",
+      "type": "Number",
+      "required": true,
+      "defaultValue": 1,
+      "description": "Display order in forms and lists"
+    },
+    {
+      "name": "MaxNominations",
+      "type": "Number",
+      "required": false,
+      "min": 1,
+      "description": "Maximum nominations allowed per category (optional limit)"
+    },
+    {
+      "name": "RequiredFields",
+      "type": "MultiChoice",
+      "required": false,
+      "choices": [
+        "Team Members",
+        "Project Timeline",
+        "Budget Impact",
+        "Metrics/KPIs",
+        "Stakeholder Feedback",
+        "Innovation Details",
+        "Leadership Examples"
+      ],
+      "description": "Additional fields required for this category"
+    },
+    {
+      "name": "ScoringWeights",
+      "type": "Note",
+      "required": false,
+      "description": "JSON configuration for scoring weights and criteria"
+    },
+    {
+      "name": "MinimumScore",
+      "type": "Number",
+      "required": false,
+      "min": 1,
+      "max": 5,
+      "decimals": 1,
+      "defaultValue": 3.0,
+      "description": "Minimum score required to proceed to next stage"
+    },
+    {
+      "name": "CreatedDate",
+      "type": "DateTime",
+      "required": true,
+      "defaultValue": "[Today]",
+      "description": "Date category was created"
+    }
+  ],
+  "defaultData": [
+    {
+      "Title": "Individual Excellence",
+      "Description": "Recognizes outstanding individual contributions and achievements that have made a significant impact on the organization.",
+      "Criteria": "<ul><li>Exceptional performance in role</li><li>Innovation and creativity</li><li>Positive impact on team/organization</li><li>Professional development and growth</li></ul>",
+      "IsActive": true,
+      "SortOrder": 1,
+      "RequiredFields": ["Metrics/KPIs", "Stakeholder Feedback"],
+      "MinimumScore": 3.5
+    },
+    {
+      "Title": "Team Achievement",
+      "Description": "Celebrates collaborative efforts and team accomplishments that have delivered exceptional results.",
+      "Criteria": "<ul><li>Collaborative teamwork</li><li>Project success and delivery</li><li>Cross-functional cooperation</li><li>Measurable team outcomes</li></ul>",
+      "IsActive": true,
+      "SortOrder": 2,
+      "RequiredFields": ["Team Members", "Project Timeline", "Metrics/KPIs"],
+      "MinimumScore": 3.5
+    },
+    {
+      "Title": "Innovation Award",
+      "Description": "Honors creative solutions, process improvements, and innovative approaches that drive organizational success.",
+      "Criteria": "<ul><li>Creative problem-solving</li><li>Process innovation</li><li>Technology advancement</li><li>Measurable improvement</li></ul>",
+      "IsActive": true,
+      "SortOrder": 3,
+      "RequiredFields": ["Innovation Details", "Metrics/KPIs", "Budget Impact"],
+      "MinimumScore": 4.0
+    },
+    {
+      "Title": "Leadership Award",
+      "Description": "Recognizes exceptional leadership qualities and the ability to inspire and guide others toward success.",
+      "Criteria": "<ul><li>Leadership excellence</li><li>Team development</li><li>Strategic thinking</li><li>Positive influence on culture</li></ul>",
+      "IsActive": true,
+      "SortOrder": 4,
+      "RequiredFields": ["Leadership Examples", "Stakeholder Feedback"],
+      "MinimumScore": 4.0
+    },
+    {
+      "Title": "Community Impact",
+      "Description": "Celebrates contributions that extend beyond work responsibilities to benefit the broader community.",
+      "Criteria": "<ul><li>Community engagement</li><li>Volunteer contributions</li><li>Social responsibility</li><li>Positive external impact</li></ul>",
+      "IsActive": true,
+      "SortOrder": 5,
+      "RequiredFields": ["Stakeholder Feedback"],
+      "MinimumScore": 3.0
+    },
+    {
+      "Title": "Rising Star",
+      "Description": "Acknowledges emerging talent and individuals who show exceptional promise and rapid professional growth.",
+      "Criteria": "<ul><li>Rapid skill development</li><li>Proactive attitude</li><li>Learning agility</li><li>Future potential</li></ul>",
+      "IsActive": true,
+      "SortOrder": 6,
+      "RequiredFields": ["Metrics/KPIs"],
+      "MinimumScore": 3.0
+    }
+  ],
+  "views": [
+    {
+      "name": "Active Categories",
+      "isDefault": true,
+      "filter": "IsActive eq true",
+      "sort": "SortOrder",
+      "fields": ["Title", "Description", "MinimumScore", "SortOrder"]
+    }
+  ]
+}

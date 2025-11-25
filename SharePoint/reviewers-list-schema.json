@@ -1,0 +1,102 @@
+{
+  "listName": "IconsOfIO_Reviewers",
+  "description": "List for managing reviewers and their assignments",
+  "fields": [
+    {
+      "name": "Title",
+      "type": "Text",
+      "required": true,
+      "maxLength": 255,
+      "description": "Reviewer's full name"
+    },
+    {
+      "name": "Email",
+      "type": "Text",
+      "required": true,
+      "maxLength": 255,
+      "description": "Reviewer's email address"
+    },
+    {
+      "name": "Department",
+      "type": "Text",
+      "required": true,
+      "maxLength": 255,
+      "description": "Reviewer's department or division"
+    },
+    {
+      "name": "Role",
+      "type": "Choice",
+      "required": true,
+      "choices": [
+        "Primary Reviewer",
+        "Secondary Reviewer",
+        "Subject Matter Expert",
+        "Leadership Panel"
+      ],
+      "description": "Reviewer's role in the process"
+    },
+    {
+      "name": "Specialization",
+      "type": "MultiChoice",
+      "required": false,
+      "choices": [
+        "Individual Excellence",
+        "Team Achievement",
+        "Innovation Award",
+        "Leadership Award",
+        "Community Impact",
+        "Rising Star"
+      ],
+      "description": "Categories the reviewer specializes in"
+    },
+    {
+      "name": "MaxAssignments",
+      "type": "Number",
+      "required": true,
+      "defaultValue": 10,
+      "min": 1,
+      "max": 50,
+      "description": "Maximum number of nominations this reviewer can handle"
+    },
+    {
+      "name": "CurrentAssignments",
+      "type": "Number",
+      "required": false,
+      "defaultValue": 0,
+      "min": 0,
+      "description": "Current number of assigned nominations"
+    },
+    {
+      "name": "IsActive",
+      "type": "Boolean",
+      "required": true,
+      "defaultValue": true,
+      "description": "Whether reviewer is currently active"
+    },
+    {
+      "name": "LastAssignmentDate",
+      "type": "DateTime",
+      "required": false,
+      "description": "Date of last assignment"
+    },
+    {
+      "name": "Notes",
+      "type": "Note",
+      "required": false,
+      "description": "Additional notes about the reviewer"
+    }
+  ],
+  "views": [
+    {
+      "name": "Active Reviewers",
+      "isDefault": true,
+      "filter": "IsActive eq true",
+      "fields": ["Title", "Department", "Role", "CurrentAssignments", "MaxAssignments"]
+    },
+    {
+      "name": "Available Reviewers",
+      "filter": "IsActive eq true and CurrentAssignments lt MaxAssignments",
+      "fields": ["Title", "Department", "Specialization", "CurrentAssignments", "MaxAssignments"]
+    }
+  ]
+}

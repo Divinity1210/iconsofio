@@ -1,0 +1,15 @@
+DynamicFieldsScreen As screen:
+    Fill: =RGBA(255,255,255,1)
+
+    lblDynamicTitle As label:
+        Text: ="Additional Required Information"
+        X: =40
+        Y: =40
+        ZIndex: =1
+
+    btnNextDynamic As button:
+        Text: ="Next"
+        OnSelect: =Navigate(AttachmentsScreen, ScreenTransition.Fade)
+        X: =40
+        Y: =100
+        ZIndex: =2

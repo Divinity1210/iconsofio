@@ -1,0 +1,52 @@
+{
+  "siteUrl": "",
+  "sharePointLists": {
+    "nominations": "IconsOfIO_nominations",
+    "categories": "IconsOfIO_categories",
+    "reviewers": "IconsOfIO_reviewers",
+    "reviews": "IconsOfIO_reviews"
+  },
+  "apps": {
+    "NominationApp": {
+      "description": "Public-facing nomination form",
+      "lists": {
+        "read": ["categories"],
+        "write": ["nominations"]
+      }
+    },
+    "AdminDashboard": {
+      "description": "Admin management dashboard",
+      "lists": {
+        "read": ["nominations", "categories", "reviewers", "reviews"],
+        "write": ["nominations", "categories", "reviewers"]
+      }
+    },
+    "ReviewerInterface": {
+      "description": "Reviewer scoring interface",
+      "lists": {
+        "read": ["nominations", "categories", "reviewers"],
+        "write": ["reviews"]
+      }
+    },
+    "FinalSelectionApp": {
+      "description": "Final selection and awards decisions",
+      "lists": {
+        "read": ["nominations", "reviews"],
+        "write": ["reviews"]
+      }
+    },
+    "ReportingDashboard": {
+      "description": "Analytics and reporting",
+      "lists": {
+        "read": ["nominations", "reviews"],
+        "write": []
+      }
+    }
+  },
+  "notes": [
+    "Set siteUrl to your SharePoint site (e.g., https://contoso.sharepoint.com/sites/IconsOfIOAwards)",
+    "Ensure the four lists exist prior to importing apps",
+    "After import, add a single SharePoint connection per app using siteUrl, then map each list"
+  ]
+}
+
