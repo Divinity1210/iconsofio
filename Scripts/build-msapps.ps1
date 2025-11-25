@@ -51,7 +51,20 @@ if ($pacCmd) {
     $PacPath = $dotnetPac
     Write-Host "Using PAC from dotnet tools: $PacPath" -ForegroundColor DarkCyan
   } else {
-    Write-Error "Power Platform CLI 'pac' not found. Install via winget or dotnet tool: https://aka.ms/pac"
+    # Try winget as a secondary installation path on Windows runners
+    Write-Host "Attempting PAC install via winget..." -ForegroundColor Yellow
+    try {
+      winget install --id Microsoft.PowerApps.CLI -e --accept-package-agreements --accept-source-agreements --silent | Out-Null
+    } catch {
+      Write-Host "winget installation attempt failed: $($_.Exception.Message)" -ForegroundColor DarkYellow
+    }
+    $pacCmd2 = Get-Command pac -ErrorAction SilentlyContinue
+    if ($pacCmd2) {
+      $PacPath = $pacCmd2.Source
+      Write-Host "Using PAC from winget: $PacPath" -ForegroundColor DarkCyan
+    } else {
+      Write-Error "Power Platform CLI 'pac' not found. Install via winget or dotnet tool: https://aka.ms/pac"
+    }
   }
 }
 
