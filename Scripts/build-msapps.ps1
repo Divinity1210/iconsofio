@@ -32,30 +32,32 @@ $apps = @(
   'ReportingDashboard'
 )
 
-# Resolve PAC CLI path, preferring a pinned dotnet global tool version (1.49.0)
+# Resolve PAC CLI path, prioritizing pinned dotnet global tool (1.49.0)
 $PacPath = $null
-$pacCmd = Get-Command pac -ErrorAction SilentlyContinue
-if ($pacCmd) {
-  $PacPath = $pacCmd.Source
+$dotnetPac = Join-Path $env:USERPROFILE '.dotnet\tools\pac.exe'
+
+Write-Host "Ensuring PAC via dotnet tool (v1.49.0)..." -ForegroundColor Yellow
+try { dotnet tool install -g Microsoft.PowerApps.CLI.Tool --version 1.49.0 | Out-Null } catch { }
+try { dotnet tool update -g Microsoft.PowerApps.CLI.Tool --version 1.49.0 | Out-Null } catch { }
+
+if (Test-Path $dotnetPac) {
+  $PacPath = $dotnetPac
+  Write-Host "Using PAC from dotnet tools: $PacPath" -ForegroundColor DarkCyan
 } else {
-  $dotnetPac = Join-Path $env:USERPROFILE '.dotnet\tools\pac.exe'
-  # Always ensure we have the known-good version 1.49.0 to avoid breaking changes
-  Write-Host "Installing PAC via dotnet tool (v1.49.0)..." -ForegroundColor Yellow
-  try { dotnet tool install -g Microsoft.PowerApps.CLI.Tool --version 1.49.0 | Out-Null } catch { }
-  if (Test-Path $dotnetPac) {
-    # Downgrade/align if a newer version was preinstalled on the runner
-    try { dotnet tool update -g Microsoft.PowerApps.CLI.Tool --version 1.49.0 | Out-Null } catch { }
-  }
-  if (-not (Test-Path $dotnetPac)) {
-    # Final fallback: try latest stable if 1.49.0 retrieval fails for any reason
+  # Fallback to PATH 'pac' (runner-installed), then final fallback to latest dotnet tool
+  $pacCmd = Get-Command pac -ErrorAction SilentlyContinue
+  if ($pacCmd) {
+    $PacPath = $pacCmd.Source
+    Write-Host "Using PAC from PATH: $PacPath" -ForegroundColor DarkCyan
+  } else {
     Write-Host "Fallback: installing PAC via dotnet tool (latest)" -ForegroundColor Yellow
     try { dotnet tool install -g Microsoft.PowerApps.CLI.Tool | Out-Null } catch { }
-  }
-  if (Test-Path $dotnetPac) {
-    $PacPath = $dotnetPac
-    Write-Host "Using PAC from dotnet tools: $PacPath" -ForegroundColor DarkCyan
-  } else {
-    Write-Error "Power Platform CLI 'pac' not found. Install via winget or dotnet tool: https://aka.ms/pac"
+    if (Test-Path $dotnetPac) {
+      $PacPath = $dotnetPac
+      Write-Host "Using PAC from dotnet tools: $PacPath" -ForegroundColor DarkCyan
+    } else {
+      Write-Error "Power Platform CLI 'pac' not found. Install via winget or dotnet tool: https://aka.ms/pac"
+    }
   }
 }
 
@@ -92,7 +94,7 @@ foreach ($app in $apps) {
 
   Write-Host "Packing $app → $out" -ForegroundColor Cyan
   try {
-    & $PacPath canvas pack --msapp "$out" --sources "$src" --verbose 2>&1 | Tee-Object -FilePath (Join-Path $LogDir ("{0}-pack.log" -f $app)) | Out-Null
+    & $PacPath canvas pack --msapp "$out" --sources "$src" 2>&1 | Tee-Object -FilePath (Join-Path $LogDir ("{0}-pack.log" -f $app)) | Out-Null
     if (-not (Test-Path $out)) {
       Write-Host "⚠️  Pack did not produce $out. See log: $(Join-Path $LogDir ("{0}-pack.log" -f $app))" -ForegroundColor Red
     }
