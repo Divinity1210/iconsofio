@@ -20,17 +20,8 @@ jobs:
         run: |
           Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
 
-      - name: Ensure Power Platform CLI (dotnet tool) is available
-        shell: pwsh
-        run: |
-          try {
-            $pac = Get-Command pac -ErrorAction SilentlyContinue
-            if ($null -eq $pac) {
-              dotnet tool install -g Microsoft.PowerApps.CLI
-            }
-          } catch {
-            Write-Host "dotnet tool install failed; proceeding. build-msapps.ps1 has fallback logic."
-          }
+      # PAC installation is handled inside Scripts/build-msapps.ps1 with pinned versions
+      # and a winget fallback. This avoids CI failures due to transient dotnet tool issues.
 
       - name: Build .msapp files via provided script
         shell: pwsh
