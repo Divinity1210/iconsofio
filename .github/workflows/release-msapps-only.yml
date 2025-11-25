@@ -23,13 +23,8 @@ jobs:
         run: |
           Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
 
-      - name: Ensure Power Platform CLI (dotnet tool)
-        shell: pwsh
-        run: |
-          try {
-            $pacCmd = Get-Command pac -ErrorAction SilentlyContinue
-            if ($null -eq $pacCmd) { dotnet tool install -g Microsoft.PowerApps.CLI }
-          } catch {}
+      # PAC installation is handled inside Scripts/build-msapps.ps1 with pinned versions
+      # and a winget fallback to avoid dotnet tool installation issues in CI.
 
       - name: Build .msapp files
         shell: pwsh
