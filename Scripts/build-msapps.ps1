@@ -32,20 +32,24 @@ $apps = @(
   'ReportingDashboard'
 )
 
-# Resolve PAC CLI path, preferring a pinned dotnet global tool version
+# Resolve PAC CLI path, preferring a pinned dotnet global tool version (1.49.0)
 $PacPath = $null
 $pacCmd = Get-Command pac -ErrorAction SilentlyContinue
 if ($pacCmd) {
   $PacPath = $pacCmd.Source
 } else {
   $dotnetPac = Join-Path $env:USERPROFILE '.dotnet\tools\pac.exe'
-  if (-not (Test-Path $dotnetPac)) {
-    Write-Host "Installing PAC via dotnet tool (v1.50.1)..." -ForegroundColor Yellow
-    try { dotnet tool install -g Microsoft.PowerApps.CLI.Tool --version 1.50.1 | Out-Null } catch { }
+  # Always ensure we have the known-good version 1.49.0 to avoid breaking changes
+  Write-Host "Installing PAC via dotnet tool (v1.49.0)..." -ForegroundColor Yellow
+  try { dotnet tool install -g Microsoft.PowerApps.CLI.Tool --version 1.49.0 | Out-Null } catch { }
+  if (Test-Path $dotnetPac) {
+    # Downgrade/align if a newer version was preinstalled on the runner
+    try { dotnet tool update -g Microsoft.PowerApps.CLI.Tool --version 1.49.0 | Out-Null } catch { }
   }
   if (-not (Test-Path $dotnetPac)) {
-    Write-Host "Attempting PAC install via dotnet tool (fallback v1.49.0)..." -ForegroundColor Yellow
-    try { dotnet tool install -g Microsoft.PowerApps.CLI.Tool --version 1.49.0 | Out-Null } catch { }
+    # Final fallback: try latest stable if 1.49.0 retrieval fails for any reason
+    Write-Host "Fallback: installing PAC via dotnet tool (latest)" -ForegroundColor Yellow
+    try { dotnet tool install -g Microsoft.PowerApps.CLI.Tool | Out-Null } catch { }
   }
   if (Test-Path $dotnetPac) {
     $PacPath = $dotnetPac
@@ -64,6 +68,8 @@ New-Item -ItemType Directory -Force -Path $LogDir | Out-Null
 try {
   # Canvas pack does not require an authenticated profile.
   # Avoid interactive auth in CI to keep this script Azure-free.
+  $ver = & $PacPath --version
+  Write-Host "PAC CLI version: $ver" -ForegroundColor DarkCyan
   & $PacPath --help | Out-Null
 } catch {
   Write-Host "PAC CLI invocation check failed, continuing without auth." -ForegroundColor DarkYellow
@@ -99,18 +105,19 @@ $dateStamp = Get-Date -Format 'yyyyMMdd_HHmmss'
 $zipPath = Join-Path $OutDir "IconsOfIOAwards_MSApps_$dateStamp.zip"
 Write-Host "Creating bundle: $zipPath" -ForegroundColor Cyan
 try {
-  $toZip = Get-ChildItem $OutDir -Filter *.msapp
-  if ($toZip.Count -eq 0) {
-    Write-Host "No .msapp files found to zip. Bundle will include docs only." -ForegroundColor DarkYellow
+  $toZip = @(Get-ChildItem -Path $OutDir -Filter *.msapp | Select-Object -ExpandProperty FullName)
+  if (-not $toZip -or $toZip.Count -eq 0) {
+    Write-Host "No .msapp files found to zip. Skipping app bundle creation." -ForegroundColor DarkYellow
+  } else {
+    Compress-Archive -Path $toZip -DestinationPath $zipPath -Force
   }
-  Compress-Archive -Path $toZip -DestinationPath $zipPath -Force
   # Append helpful docs if present
   $root = Split-Path $PSScriptRoot -Parent
   $docs = @(
     (Join-Path $root 'build\README_Upload.md'),
     (Join-Path $root 'build\Connections-Mapping.json')
   ) | Where-Object { Test-Path $_ }
-  if ($docs.Count -gt 0) {
+  if ($toZip -and ($docs.Count -gt 0)) {
     Compress-Archive -Path $docs -DestinationPath $zipPath -Update
   }
 } catch {
