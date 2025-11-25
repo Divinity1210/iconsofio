@@ -29,6 +29,7 @@ jobs:
           Scripts\build-msapps.ps1
 
       - name: Upload .msapp artifacts
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: msapps
@@ -36,6 +37,7 @@ jobs:
             build/*.msapp
 
       - name: Upload bundle zips and logs
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: msapps-bundle-and-logs
